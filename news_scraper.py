@@ -2,12 +2,17 @@ import requests
 from newspaper import *
 import json
 from summary import summarize_text
+import os
+from dotenv import load_dotenv
+
+#Load environment
+load_dotenv()
 
 def get_news(source, topic):
     query_params = {
       "sources" : source,
       "q" : "{}".format(topic),
-      "apiKey" : "275590f4b1cb48608969171d4acd641b"
+      "apiKey" : os.environ.get("scraper-api-key")
     }
 
     endpoint_url = "https://newsapi.org/v2/everything"

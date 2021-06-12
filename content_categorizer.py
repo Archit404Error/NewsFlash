@@ -1,4 +1,9 @@
 import requests
+import os
+from dotenv import load_dotenv
+
+#Load environment
+load_dotenv()
 
 '''
 Topic List(Provided by API)
@@ -7,7 +12,7 @@ Arts, Business, Computers, Games, Health, Home, Recreation,Science, Society and 
 
 def classify_topic(topic):
     query_params = {
-        "readKey" : "d2HXLjz3dWcM",
+        "readKey" : os.environ.get("categorization-api-key"),
         "text" : topic
     }
 
@@ -20,6 +25,7 @@ def classify_topic(topic):
     ordered_res = dict(sorted(res_json.items(), key=lambda item: 1 - item[1]))
     # Gets the first key in the ordered dict(most confident)
     predicted_topic = (next(iter(ordered_res)))
+    print(predicted_topic)
     return predicted_topic
 
 classify_topic("French Presidential Election")
