@@ -1,0 +1,67 @@
+<html>
+  <head>
+    <!-- Title and Meta -->
+    <title>NewsFlash: Learn breaking news in break-neck speeds</title>
+
+    <!-- Load Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    <!-- Load FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Load Stylesheets -->
+    <link rel = "stylesheet" type = "text/css" href = "static/style.css">
+
+    <script>
+      function show(textId) {
+        var element = document.getElementById(textId);
+        var button = document.getElementById(textId + "Button");
+        element.classList.remove("text-truncate");
+        button.innerHTML = "Show Less";
+        button.onclick = function(){truncate(textId)};
+      }
+      function truncate(textId){
+        var element = document.getElementById(textId);
+        var button = document.getElementById(textId + "Button");
+        element.classList.add("text-truncate");
+        button.innerHTML = "Show More";
+        button.onclick = function(){show(textId)};
+      }
+    </script>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class = "col-md-6 offset-md-3 text-center">
+        <h1><span style = "color: white;">Your Topic: {{topic}}</span></h1>
+      </div>
+        {% for source in sources %}
+          <div class = "row">
+            <div class = "col-md-6 offset-md-1">
+              <h2 class = "col-md-12"><span style = "color: white;">{{source}}</span></h2>
+            </div>
+          </div>
+          <div class = "row">
+            <div class = "offset-md-1 col-md-auto text-center">
+              {% if biases[source] == 'conservative' %}
+              <h6 class = "bias-conservative small-text-container">conservative</h6>
+              {% elif biases[source] == 'liberal' %}
+              <h6 class = "bias-liberal small-text-container">liberal</h6>
+              {% else %}
+              <h6 class = "bias-center small-text-container">centrist</h6>
+              {% endif %}
+            </div>
+            <div class = "col-md-auto text-center">
+              <a target = "_blank" href = {{article_links[source]}}><h6 class = "article-link small-text-container">Read full article</h6></a>
+            </div>
+          </div>
+          <div class = "offset-md-1 col-md-10 ">
+            <h4 id = {{source}} class = "text-truncate"><span style = "color: white;">{{outlet_summaries[source]}}</span></h4>
+            <a id = "{{source}}Button" href = "#{{source}}" onclick = "show('{{source}}')">Show More</a>
+          </div>
+          <div style = "height: 5vh"></div>
+        {% endfor %}
+    </div>
+  </body>
+</html>

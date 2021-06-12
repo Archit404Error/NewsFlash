@@ -1,0 +1,50 @@
+.small-text-container{
+  padding-left: 3px;
+  padding-right: 3px;
+}
+
+.bias-center {
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+}
+
+.bias-conservative {
+  border-radius: 5px;
+  background-color: red;
+  color: white;
+}
+
+.bias-liberal {
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+}
+
+.article-link {
+  border-radius: 5px;
+  background-color: purple;
+  color: white;
+  text-decoration-color: white;
+}
+
+#landing h1 {
+  font-size: 8vh;
+}
+
+#landing input {
+  color: #2d6ff4;
+  background-color: black;
+}
+
+::placeholder {
+  color: #2d6ff4;
+}
+
+span {
+  color: #2d6ff4;
+}
+
+body {
+  background-color: black;
+}
