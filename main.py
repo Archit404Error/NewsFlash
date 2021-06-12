@@ -3,12 +3,27 @@ from content_categorizer import classify_topic
 from news_scraper import get_news, get_trending
 from summary import summarize_text
 
+#TODO: Cache queries to reduce total API requests made
+#TODO: Display most popular searches(perhaps replace trending page with this info)
+
 #Initialize server
 app = Flask(__name__)
 
-#TODO: implement news sources by category (society, science, tech, etc.)
-#List of news sources
-sources = ['bbc-news', 'cnn', 'fox-news', 'abc-news', 'breitbart-news', 'axios',
+#List of business sources
+business_sources = ['australian-financial-review', 'bloomberg', 'business-insider',
+        'financial-post']
+
+#List of tech sources
+tech_sources = ['engadget', 'hacker-news', 'recode']
+
+#List of science sources
+science_sources = ['national-geographic', 'new-scientist', 'next-big-future']
+
+#List of sports sources
+sports_sources = ['espn', 'bleacher-report', 'four-four-two']
+
+#List of political sources
+political_sources = ['bbc-news', 'cnn', 'fox-news', 'abc-news', 'breitbart-news', 'axios',
             'the-hill', 'the-washington-post']
 
 #Dictionary of politcial affiliation by source
@@ -16,6 +31,15 @@ biases = {'bbc-news' : 'center', 'cnn' : 'liberal', 'fox-news' : 'conservative',
             'abc-news' : 'liberal', 'breitbart-news' : 'conservative',
             'axios' : 'center', 'the-hill' : 'center',
             'the-washington-post' : 'liberal'}
+
+#Create map to find list based on categorization(since Python doesn't have switch statements)
+category_to_list_map = {
+                         "Business" : business_sources,
+                         "Computers" : tech_sources,
+                         "Science" : science_sources,
+                         "Sports" : sports_sources,
+                         "Society" : political_sources
+                       }
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -33,10 +57,12 @@ def summaries():
     #Use classification function and store result
     topic_category = classify_topic(topic)
 
-    #format topic for api query
+    #Format topic for api query
     topic = topic.replace(" ", "+")
 
-    #TODO: Determine which source list to use in loop based on classification
+    #Determine source list based upon categorization
+    sources = category_to_list_map[topic_category]
+
     for source in sources:
         article_link, full_text = get_news(source, topic)
         outlet_summaries[source] = summarize_text(full_text)
