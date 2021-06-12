@@ -30,5 +30,3 @@ def classify_topic(topic):
     predicted_topic = (next(iter(ordered_res)))
     print(predicted_topic)
     return predicted_topic
-
-classify_topic("French Presidential Election")

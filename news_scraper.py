@@ -70,7 +70,6 @@ def get_trending():
             continue
         #Store the article publisher into source_name variable(which will be used as dict key)
         source_name = (article["source"])["name"]
-        print(newspaper_article.title)
         outlet_summaries[source_name] = [article_url, summarize_text(newspaper_article.text)]
 
     return outlet_summaries
