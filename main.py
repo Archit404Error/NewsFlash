@@ -38,15 +38,16 @@ category_to_list_map = {
                          "Computers" : tech_sources,
                          "Science" : science_sources,
                          "Sports" : sports_sources,
-                         "Society" : political_sources
+                         "Society" : political_sources,
+                         "Health" : political_sources
                        }
 
 @app.route('/', methods=['GET', 'POST'])
-def index():
+def index() -> html_template:
     return render_template("index.html")
 
 @app.route('/summaries', methods=['GET', 'POST'])
-def summaries():
+def summaries() -> html_template:
     #Store user topic from homepage post request
     topic = request.form['topic']
 
@@ -73,7 +74,7 @@ def summaries():
     outlet_summaries = outlet_summaries, biases = biases, article_links = article_links)
 
 @app.route('/trending', methods=['GET', 'POST'])
-def trending():
+def trending() -> html_template:
     outlet_summaries = get_trending()
     return render_template("trending.html", outlet_summaries = outlet_summaries)
 

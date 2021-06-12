@@ -10,7 +10,7 @@ import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize, sent_tokenize
 
-def summarize_text(text):
+def summarize_text(text) -> string:
 
     # Tokenizing the text
     stopWords = set(stopwords.words("english"))
