@@ -11,13 +11,16 @@ Arts, Business, Computers, Games, Health, Home, Recreation,Science, Society and 
 '''
 
 def classify_topic(topic):
+    #Set up query parameters for UClassify API
     query_params = {
         "readKey" : os.environ.get("categorization-api-key"),
         "text" : topic
     }
 
+    #Format endpoint based on classifier publisher and classifier needed
     endpoint_url = "https://api.uclassify.com/v1/{}/{}/classify".format("uclassify", "topics")
 
+    #Send get request to API and store response
     res = requests.get(endpoint_url, params=query_params)
     res_json = res.json()
 

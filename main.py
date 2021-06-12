@@ -65,7 +65,9 @@ def summaries():
 
     for source in sources:
         article_link, full_text = get_news(source, topic)
+        #Summarize article text to enable faster reading
         outlet_summaries[source] = summarize_text(full_text)
+        #Create key value pair in dictionary using source and link
         article_links[source] = article_link
     return render_template("summaries.html", topic = topic, sources = sources,
     outlet_summaries = outlet_summaries, biases = biases, article_links = article_links)
