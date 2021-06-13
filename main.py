@@ -11,16 +11,18 @@ app = Flask(__name__)
 
 #List of business sources
 business_sources = ['australian-financial-review', 'bloomberg', 'business-insider',
-        'financial-post']
+        'financial-post', 'fortune', 'the-wall-street-journal']
 
 #List of tech sources
-tech_sources = ['engadget', 'hacker-news', 'recode']
+tech_sources = ['ars-technica', 'engadget', 'hacker-news', 'recode', 'techcrunch',
+        'techradar', 'the-next-web', 'wired']
 
 #List of science sources
 science_sources = ['national-geographic', 'new-scientist', 'next-big-future']
 
 #List of sports sources
-sports_sources = ['espn', 'bleacher-report', 'four-four-two']
+sports_sources = ['espn', 'bleacher-report', 'four-four-two', 'nfl-news', 'nhl-news',
+        'talksport', 'the-sport-bible', 'bbc-sport']
 
 #List of political sources
 political_sources = ['bbc-news', 'cnn', 'fox-news', 'abc-news', 'breitbart-news', 'axios',
