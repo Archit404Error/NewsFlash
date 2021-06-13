@@ -45,11 +45,11 @@ category_to_list_map = {
                        }
 
 @app.route('/', methods=['GET', 'POST'])
-def index() -> html_template:
+def index() -> str:
     return render_template("index.html")
 
 @app.route('/summaries', methods=['GET', 'POST'])
-def summaries() -> html_template:
+def summaries() -> str:
     #Store user topic from homepage post request
     topic = request.form['topic']
 
@@ -76,7 +76,7 @@ def summaries() -> html_template:
     outlet_summaries = outlet_summaries, biases = biases, article_links = article_links)
 
 @app.route('/trending', methods=['GET', 'POST'])
-def trending() -> html_template:
+def trending() -> str:
     outlet_summaries = get_trending()
     return render_template("trending.html", outlet_summaries = outlet_summaries)
 

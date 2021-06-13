@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 #Load environment
 load_dotenv()
 
-def get_news(source, topic) -> url, string:
+def get_news(source, topic) -> tuple[str, str]:
     #Set up parameters for api query
     query_params = {
       "sources" : source,
@@ -42,7 +42,7 @@ def get_news(source, topic) -> url, string:
     newspaper_article.parse()
     return article_url, newspaper_article.text
 
-def get_trending() -> article_dictionary:
+def get_trending() -> dict[str, list[str, str]]:
     #Set up API query parameters
     query_params = {
       "country" : "us",

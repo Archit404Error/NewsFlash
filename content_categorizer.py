@@ -10,7 +10,7 @@ Topic List(Provided by API)
 Arts, Business, Computers, Games, Health, Home, Recreation,Science, Society and Sports
 '''
 
-def classify_topic(topic) -> string:
+def classify_topic(topic) -> str:
     #Set up query parameters for UClassify API
     query_params = {
         "readKey" : os.environ.get("categorization-api-key"),
@@ -30,7 +30,7 @@ def classify_topic(topic) -> string:
     predicted_topic = (next(iter(ordered_res)))
     return predicted_topic
 
-def sentiment_analysis(text) -> string:
+def sentiment_analysis(text) -> str:
     #Set up query parameters for UClassify API
     query_params = {
         "readKey" : os.environ.get("categorization-api-key"),
