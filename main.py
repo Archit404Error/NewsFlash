@@ -3,6 +3,7 @@ from newsflash import collect_news
 
 #TODO: Cache queries to reduce total API requests made
 #TODO: Display most popular searches(perhaps replace trending page with this info)
+#TODO: Use sentiment analysis on articles to show how each side feels
 
 #Initialize server
 app = Flask(__name__)
