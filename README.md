@@ -1,5 +1,5 @@
-#Newsflash
-##What it does
+# Newsflash
+## What it does
 Newsflash is a program built to enable people to quickly read up on current news,
 all while getting multiple viewpoints from across the aisle. Newsflash pulls
 the most recent news from a given topic, summarizes the articles, and displays articles
