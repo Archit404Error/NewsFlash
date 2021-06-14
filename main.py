@@ -5,6 +5,7 @@ import json
 #TODO: Extend caches to api page and reset cache daily
 #TODO: Display most popular searches(perhaps replace trending page with this info)
 #TODO: Use sentiment analysis on articles to show how each side feels
+#TODO: Update Cache capabilities to support multiple cached lists
 
 #Initialize server
 app = Flask(__name__)
