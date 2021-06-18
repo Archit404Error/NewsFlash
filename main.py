@@ -1,8 +1,8 @@
 from flask import Flask, request, render_template, jsonify
-from newsflash import collect_news
+from cache_handler import cache_query
 import json
 
-#TODO: Extend caches to api page and reset cache daily
+#TODO: Reset cache daily
 #TODO: Display most popular searches(perhaps replace trending page with this info)
 #TODO: Use sentiment analysis on articles to show how each side feels
 
@@ -17,24 +17,7 @@ def index() -> str:
 def summaries() -> str:
     #Store user topic from homepage post request
     topic = request.form['topic']
-    cache = open('cache.json', 'r+')
-    cached_list = json.load(cache)
-    cache = open('cache.json', 'r+')
-
-    if topic in cache.read():
-        for stored in cached_list:
-            if stored[0] == topic or topic in stored[2].values():
-                sources = stored[1]
-                outlet_summaries = stored[2]
-                biases = stored[3]
-                article_links = stored[4]
-    else:
-        sources, outlet_summaries, biases, article_links = collect_news(topic)
-        json_data = [topic, sources, outlet_summaries, biases, article_links]
-        cache.seek(0)
-        cached_list.append(json_data)
-        json.dump(cached_list, cache)
-        cache.truncate()
+    sources, outlet_summaries, biases, article_links = cache_query('cache.json', topic)
 
     return render_template("summaries.html", topic = topic, sources = sources,
     outlet_summaries = outlet_summaries, biases = biases, article_links = article_links)
@@ -50,8 +33,7 @@ def apiRes() -> str:
     topic = ""
     for item in request.args:
         topic = item
-    print(topic)
-    sources, outlet_summaries, biases, article_links = collect_news(topic)
+    sources, outlet_summaries, biases, article_links = cache_query('cache.json', topic)
 
     return jsonify(topic = topic, articles = article_links, summaries = outlet_summaries)
 
