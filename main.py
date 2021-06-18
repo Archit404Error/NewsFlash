@@ -5,7 +5,6 @@ import json
 #TODO: Extend caches to api page and reset cache daily
 #TODO: Display most popular searches(perhaps replace trending page with this info)
 #TODO: Use sentiment analysis on articles to show how each side feels
-#TODO: Update Cache capabilities to support multiple cached lists
 
 #Initialize server
 app = Flask(__name__)
@@ -20,6 +19,7 @@ def summaries() -> str:
     topic = request.form['topic']
     cache = open('cache.json', 'r+')
     cached_list = json.load(cache)
+    cache = open('cache.json', 'r+')
 
     if topic in cache.read():
         for stored in cached_list:
@@ -31,10 +31,10 @@ def summaries() -> str:
     else:
         sources, outlet_summaries, biases, article_links = collect_news(topic)
         json_data = [topic, sources, outlet_summaries, biases, article_links]
-        cache.truncate(0)
+        cache.seek(0)
         cached_list.append(json_data)
         json.dump(cached_list, cache)
-        # Fix whitespace issue
+        cache.truncate()
 
     return render_template("summaries.html", topic = topic, sources = sources,
     outlet_summaries = outlet_summaries, biases = biases, article_links = article_links)
