@@ -3,23 +3,19 @@ from news_scraper import get_news, get_trending
 from summary import summarize_text
 
 #List of business sources
-business_sources = ['australian-financial-review', 'bloomberg', 'business-insider',
-        'financial-post', 'fortune', 'the-wall-street-journal']
+business_sources = ['australian-financial-review', 'bloomberg', 'business-insider', 'financial-post', 'fortune', 'the-wall-street-journal']
 
 #List of tech sources
-tech_sources = ['ars-technica', 'engadget', 'hacker-news', 'recode', 'techcrunch',
-        'techradar', 'the-next-web', 'wired']
+tech_sources = ['ars-technica', 'engadget', 'hacker-news', 'recode', 'techcrunch', 'techradar', 'the-next-web', 'wired']
 
 #List of science sources
 science_sources = ['national-geographic', 'new-scientist', 'next-big-future']
 
 #List of sports sources
-sports_sources = ['espn', 'bleacher-report', 'four-four-two', 'nfl-news', 'nhl-news',
-        'talksport', 'the-sport-bible', 'bbc-sport']
+sports_sources = ['espn', 'bleacher-report', 'four-four-two', 'nfl-news', 'nhl-news', 'talksport', 'the-sport-bible', 'bbc-sport']
 
 #List of political sources
-political_sources = ['bbc-news', 'cnn', 'fox-news', 'abc-news', 'breitbart-news', 'axios',
-            'the-hill', 'the-washington-post']
+political_sources = ['bbc-news', 'cnn', 'fox-news', 'abc-news', 'breitbart-news', 'axios', 'the-hill', 'the-washington-post']
 
 #Dictionary of politcial affiliation by source
 biases = {'bbc-news' : 'center', 'cnn' : 'liberal', 'fox-news' : 'conservative',
@@ -32,6 +28,7 @@ category_to_list_map = {
                          "Business" : business_sources,
                          "Computers" : tech_sources,
                          "Science" : science_sources,
+                         "Game" : sports_sources,
                          "Sports" : sports_sources,
                          "Society" : political_sources,
                          "Health" : political_sources
