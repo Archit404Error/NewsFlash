@@ -3,8 +3,8 @@ from cache_handler import cache_query
 import json
 
 #TODO: Reset cache daily
-#TODO: Display most popular searches(perhaps replace trending page with this info)
-#TODO: Use sentiment analysis on articles to show how each side feels
+#TODO: Replace trending page using times_queried in json data
+#TODO: Use implemented sentiment analysis function on articles to show how each side feels
 
 #Initialize server
 app = Flask(__name__)
