@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, jsonify
-from cache_handler import cache_query
+from cache_handler import cache_query, trending_news
 import json
 import requests
 
@@ -35,8 +35,8 @@ def summaries() -> str:
 
 @app.route('/trending', methods=['GET', 'POST'])
 def trending() -> str:
-    outlet_summaries = get_trending()
-    return render_template("trending.html", outlet_summaries = outlet_summaries)
+    trending_topics = trending_news('cache.json')
+    return render_template("trending.html", trending_topics = trending_topics)
 
 @app.route('/api')
 def apiRes() -> str:

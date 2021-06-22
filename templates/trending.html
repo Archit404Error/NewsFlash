@@ -33,21 +33,17 @@
   </head>
   <body>
     <div class="container">
-      {% for source in outlet_summaries.keys() %}
-        {% set sourceList = outlet_summaries[source] %}
+      <center><h1 style = "font-size: 10vh; color: white;">Trending Topics</h1></center>
+      {% for topic in trending_topics %}
         <div class = "row">
           <div class = "col-md-6 offset-md-1">
-            <h2 class = "col-md-12">{{source}}</h2>
+            <h2 class = "col-md-12" style = "color: white;">{{topic}}</h2>
           </div>
         </div>
         <div class = "row">
           <div class = "offset-md-1 col-md-auto text-center">
-            <a target = "_blank" href = {{sourceList[0]}}><h6 class = "article-link small-text-container">Read full article</h6></a>
+            <a target = "_blank" href = "http://localhost:5000/api?{{topic}}"><h6 class = "article-link small-text-container"><i class = "fa fa-external-link"></i> View Newsflash Summaries</h6></a>
           </div>
-        </div>
-        <div class = "offset-md-1 col-md-10 ">
-          <h4 id = {{source}} class = "text-truncate">{{sourceList[1]}}</h4>
-          <button id = "{{source}}Button" class = "btn btn-primary" onclick = "show('{{source}}')">Show More</button>
         </div>
         <div style = "height: 5vh"></div>
       {% endfor %}

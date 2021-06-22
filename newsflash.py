@@ -1,5 +1,5 @@
 from content_categorizer import classify_topic
-from news_scraper import get_news, get_trending
+from news_scraper import get_news
 from summary import summarize_text
 
 #List of business sources

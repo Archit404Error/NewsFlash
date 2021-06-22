@@ -39,3 +39,21 @@ def cache_query(cache_path, topic):
 
     #Send back collected values necessary to displaying articles
     return sources, outlet_summaries, biases, article_links
+
+def trending_news(cache_path):
+    cache = open(cache_path, 'r+')
+
+    try:
+        cached_list = json.load(cache)
+    except:
+        cached_list = []
+
+    cached_list.sort(key=lambda stored: -1 * stored[5])
+    cached_list = filter(lambda story: story[5] > 1, cached_list)
+
+    trending_topics = []
+
+    for article_obj in cached_list:
+        trending_topics.append(article_obj[0])
+
+    return trending_topics
