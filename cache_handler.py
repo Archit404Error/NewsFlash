@@ -1,5 +1,5 @@
 from newsflash import collect_news
-import json
+import json, time
 
 def cache_query(cache_path, topic):
     cache = open(cache_path, 'r+')
@@ -14,24 +14,31 @@ def cache_query(cache_path, topic):
         for stored in cached_list:
             #Account for keywords by searching for topic in description
             if stored[0] == topic or topic in stored[2].values():
-                #Get cached values to decrease query time
-                sources = stored[1]
-                outlet_summaries = stored[2]
-                biases = stored[3]
-                article_links = stored[4]
-                #Increment times queried value
-                times_queried = stored[5] + 1
+                if (time.time() - stored[6]) / (24 * 60 * 60) < 1:
+                    #Get cached values to decrease query time
+                    sources = stored[1]
+                    outlet_summaries = stored[2]
+                    biases = stored[3]
+                    article_links = stored[4]
+                    #Increment times queried value
+                    times_queried = stored[5] + 1
+                    time_at_query = stored[6]
+                else:
+                    sources, outlet_summaries, biases, article_links = collect_news(topic)
+                    times_queried = 1
+                    time_at_query = time.time()
                 #Reset the value of this object and add it to json file
                 cache.seek(0)
-                cached_list[cached_list.index(stored)] = [topic, sources, outlet_summaries, biases, article_links, times_queried]
+                cached_list[cached_list.index(stored)] = [topic, sources, outlet_summaries, biases, article_links, times_queried, time_at_query]
                 json.dump(cached_list, cache)
                 cache.truncate()
     else:
         #Get values from collect_news function
         sources, outlet_summaries, biases, article_links = collect_news(topic)
         times_queried = 1
+        time_at_query = time.time()
         #Create json data, append it to cached_list, and dump into file
-        json_data = [topic, sources, outlet_summaries, biases, article_links, times_queried]
+        json_data = [topic, sources, outlet_summaries, biases, article_links, times_queried, time_at_query]
         cache.seek(0)
         cached_list.append(json_data)
         json.dump(cached_list, cache)

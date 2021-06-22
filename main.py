@@ -3,9 +3,8 @@ from cache_handler import cache_query, trending_news
 import json
 import requests
 
-#TODO: Reset cache daily
-#TODO: Replace trending page using times_queried in json data
 #TODO: Use implemented sentiment analysis function on articles to show how each side feels
+#TODO: Implement mobile client to query API
 
 #Initialize server
 app = Flask(__name__)
