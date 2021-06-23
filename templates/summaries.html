@@ -25,7 +25,7 @@
         var element = document.getElementById(textId);
         var button = document.getElementById(textId + "Button");
         element.classList.add("text-truncate");
-        button.innerHTML = "Show More";
+        button.innerHTML = "View Full Summary";
         button.onclick = function(){show(textId)};
       }
     </script>
@@ -34,12 +34,17 @@
   <body>
     <div class="container">
       <div class = "col-md-6 offset-md-3 text-center">
-        <h1><span style = "color: white;">Your Topic: {{topic}}</span></h1>
+        <h1><span style = "color: white;">Showing Summaries For: {{topic}}</span></h1>
       </div>
         {% for source in sources %}
+        <div class = "row">
+          <div class = "col-md-11 offset-md-1">
+            <h2 class = "col-md-12"><span style = "color: white;">{{outlet_summaries[source][0]}}</span></h2>
+          </div>
+        </div>
           <div class = "row">
             <div class = "col-md-6 offset-md-1">
-              <h2 class = "col-md-12"><span style = "color: white;">{{source}}</span></h2>
+              <h2 class = "col-md-12"><span style = "color: white;">({{source}})</span></h2>
             </div>
           </div>
           <div class = "row">
@@ -53,12 +58,12 @@
               {% endif %}
             </div>
             <div class = "col-md-auto text-center">
-              <a target = "_blank" href = {{article_links[source]}}><h6 class = "article-link small-text-container">Read full article</h6></a>
+              <a target = "_blank" href = {{article_links[source]}}><h6 class = "article-link small-text-container"><i class = "fa fa-external-link"></i> Read full article</h6></a>
             </div>
           </div>
           <div class = "offset-md-1 col-md-10 ">
-            <h4 id = {{source}} class = "text-truncate"><span style = "color: white;">{{outlet_summaries[source]}}</span></h4>
-            <a id = "{{source}}Button" href = "#{{source}}" onclick = "show('{{source}}')">Show More</a>
+            <h4 id = {{source}} class = "text-truncate"><span style = "color: white;">{{outlet_summaries[source][1]}}</span></h4>
+            <a id = "{{source}}Button" href = "javascript:;" onclick = "show('{{source}}')">View Full Summary</a>
           </div>
           <div style = "height: 5vh"></div>
         {% endfor %}

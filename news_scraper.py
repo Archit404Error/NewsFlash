@@ -31,7 +31,7 @@ def get_news(source, topic) -> tuple[str, str]:
     articles = res_json["articles"]
 
     if len(articles) == 0:
-        return None, "No articles found on the subject of " + topic + " from the source " + source
+        return None, "No article found", "No articles found on the subject of " + topic + " from the source " + source
 
     #Get URL of first returned article to find most recent/relevant article from source
     article_url = articles[0]["url"]
@@ -40,4 +40,6 @@ def get_news(source, topic) -> tuple[str, str]:
     newspaper_article = Article(article_url)
     newspaper_article.download()
     newspaper_article.parse()
-    return article_url, newspaper_article.text
+    return article_url, newspaper_article.title, newspaper_article.text
+
+print(get_news('recode', 'Google'))

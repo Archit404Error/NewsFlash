@@ -49,9 +49,10 @@ def collect_news(topic):
     sources = category_to_list_map[topic_category]
 
     for source in sources:
-        article_link, full_text = get_news(source, topic)
+        article_link, article_title, full_text = get_news(source, topic)
+
         #Summarize article text to enable faster reading
-        outlet_summaries[source] = summarize_text(full_text)
+        outlet_summaries[source] = [article_title, summarize_text(full_text)]
         #Create key value pair in dictionary using source and link
         article_links[source] = article_link
 

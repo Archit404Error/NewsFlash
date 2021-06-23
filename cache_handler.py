@@ -12,8 +12,12 @@ def cache_query(cache_path, topic):
     cache = open(cache_path, 'r+')
     if topic in cache.read():
         for stored in cached_list:
+            found_in_desc = False
+            for key, val in stored[2].items():
+                if (val[0] != None and topic in val[0]) or (val[1] != None and topic in val[1]):
+                    found_in_desc = True
             #Account for keywords by searching for topic in description
-            if stored[0] == topic or topic in stored[2].values():
+            if stored[0] == topic or found_in_desc:
                 if (time.time() - stored[6]) / (24 * 60 * 60) < 1:
                     #Get cached values to decrease query time
                     sources = stored[1]
