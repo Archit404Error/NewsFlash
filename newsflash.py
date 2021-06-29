@@ -1,4 +1,4 @@
-from content_categorizer import classify_topic
+from content_categorizer import classify_topic, sentiment_analysis
 from news_scraper import get_news
 from summary import summarize_text
 
@@ -39,6 +39,9 @@ def collect_news(topic):
     outlet_summaries = {}
     article_links = {}
 
+    #Initialize sentiments matrix
+    sentiments = []
+
     #Use classification function and store result
     topic_category = classify_topic(topic)
 
@@ -51,9 +54,11 @@ def collect_news(topic):
     for source in sources:
         article_link, article_title, full_text = get_news(source, topic)
 
+        #Perform sentiment analsysis on text and store results
+        sentiments.append(sentiment_analysis(full_text))
         #Summarize article text to enable faster reading
         outlet_summaries[source] = [article_title, summarize_text(full_text)]
         #Create key value pair in dictionary using source and link
         article_links[source] = article_link
 
-    return sources, outlet_summaries, biases, article_links
+    return sources, outlet_summaries, biases, article_links, sentiments

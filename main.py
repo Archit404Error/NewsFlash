@@ -3,6 +3,9 @@ from cache_handler import cache_query, trending_news
 import json
 import requests
 
+#FIXME: See if newer news can be found via API
+#FIXME: Change how outlets are displayed under article title
+#TODO: Investigate cache title issue further
 #TODO: Use implemented sentiment analysis function on articles to show how each side feels
 #TODO: Implement mobile client to query API
 
@@ -28,9 +31,10 @@ def summaries() -> str:
     outlet_summaries = res_json["summaries"]
     biases = res_json["biases"]
     article_links = res_json["articles"]
+    sentiments = res_json["sentiments"]
 
     return render_template("summaries.html", topic = topic, sources = sources,
-    outlet_summaries = outlet_summaries, biases = biases, article_links = article_links)
+    outlet_summaries = outlet_summaries, biases = biases, article_links = article_links, sentiments = sentiments)
 
 @app.route('/trending', methods=['GET', 'POST'])
 def trending() -> str:
@@ -43,9 +47,9 @@ def apiRes() -> str:
     topic = ""
     for item in request.args:
         topic = item
-    sources, outlet_summaries, biases, article_links = cache_query('cache.json', topic)
+    sources, outlet_summaries, biases, article_links, sentiments = cache_query('cache.json', topic)
 
-    return jsonify(topic = topic, articles = article_links, summaries = outlet_summaries, sources = sources, biases = biases)
+    return jsonify(topic = topic, articles = article_links, summaries = outlet_summaries, sources = sources, biases = biases, sentiments = sentiments)
 
 if __name__ == "__main__":
     app.run(debug=True)

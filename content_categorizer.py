@@ -45,5 +45,5 @@ def sentiment_analysis(text) -> str:
     res_json = res.json()
 
     if res_json['positive'] > res_json['negative']:
-        return 'positive'
-    return 'negative'
+        return ['positive', res_json['positive']]
+    return ['negative', res_json['negative']]

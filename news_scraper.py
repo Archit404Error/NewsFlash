@@ -41,5 +41,3 @@ def get_news(source, topic) -> tuple[str, str]:
     newspaper_article.download()
     newspaper_article.parse()
     return article_url, newspaper_article.title, newspaper_article.text
-
-print(get_news('recode', 'Google'))
