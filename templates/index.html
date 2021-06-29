@@ -15,13 +15,13 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
   </head>
   <body>
-    <div id = "landing" class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
+    <div id = "landing" class="d-flex flex-column justify-content-center align-items-center" style = "height: 75vh;">
+        <img src = "../static/newsflash_logo.png" style = "height: 25vh;">
         <h1><span>NewsFlash</span></h1>
-        <h5><span>Get breaking news at break-neck speeds</span></h5>
         <div class = "row min-vw-100">
           <form method = "POST" action = "/summaries">
             <div class = "form-group col-md-4 offset-md-4">
-              <input autofocus type = "text" class = "form-control" name = "topic" placeholder = "Browse any topic">
+              <input autofocus type = "text" class = "form-control" name = "topic" placeholder = "Learn about any topic">
             </div>
           </form>
         </div>
@@ -50,6 +50,24 @@
             </div>
           </div>
         </div>
+        <div style = "height: 5vh"></div>
+        <h6><span>Getting you breaking news at break-neck speeds</span></h6>
+        <div style = "height: 5vh"></div>
+        <h2><span>Top Headlines</span></h2>
+    </div>
+    <div id = "topHeadlines" class = "d-flex d-flex-column justify-content-center align-items-center" style = "min-height: 50vh;">
+      <div class = "row">
+        {% for source, info_arr in top_articles.items() %}
+        <div class="card offset-md-1" style="width: 18rem; margin-bottom: 5%;">
+          <div class="card-body">
+            <h5 class="card-title">{{info_arr[0]}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{source}}</h6>
+            <p class="card-text">{{info_arr[1]}}</p>
+            <a target="_blank" href={{info_arr[2]}} class="card-link">View Article</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </body>
 </html>

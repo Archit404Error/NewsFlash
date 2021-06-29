@@ -1,4 +1,5 @@
 from newsflash import collect_news
+from news_scraper import get_top
 import json, time
 
 def cache_query(cache_path, topic):
@@ -69,3 +70,22 @@ def trending_news(cache_path):
         trending_topics.append(article_obj[0])
 
     return trending_topics
+
+def top_news(cache_path):
+    cache = open(cache_path, 'r+')
+
+    try:
+        top_articles = json.load(cache)
+    except:
+        top_articles = {}
+
+    #Reopen cache file so we can re-read from it
+    cache = open(cache_path, 'r+')
+
+    if len(top_articles) == 0:
+        top_articles = get_top("us")
+        cache.seek(0)
+        json.dump(top_articles, cache)
+        cache.truncate()
+
+    return top_articles

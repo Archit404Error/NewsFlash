@@ -41,3 +41,24 @@ def get_news(source, topic) -> tuple[str, str]:
     newspaper_article.download()
     newspaper_article.parse()
     return article_url, newspaper_article.title, newspaper_article.text
+
+def get_top(country):
+    query_params = {
+      "country" : "{}".format(country),
+      "apiKey" : os.environ.get("scraper-api-key")
+    }
+
+    endpoint_url = "https://newsapi.org/v2/top-headlines"
+
+    #Send get request to API and store response
+    res = requests.get(endpoint_url, params=query_params)
+    res_json = res.json()
+
+    articles = res_json["articles"]
+
+    article_infos = {}
+
+    for article in articles:
+        article_infos[article["source"]["name"]] = [article["title"], article["content"], article["url"]]
+
+    return article_infos
