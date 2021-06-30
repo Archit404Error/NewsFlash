@@ -3,10 +3,7 @@ from cache_handler import cache_query, trending_news, top_news
 import json
 import requests
 
-#FIXME: See if newer news can be found via API
 #FIXME: Change how outlets are displayed under article title
-#TODO: Investigate cache title issue further
-#TODO: Use implemented sentiment analysis function on articles to show how each side feels
 #TODO: Implement mobile client to query API
 
 #Initialize server

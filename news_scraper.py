@@ -3,16 +3,25 @@ from newspaper import *
 import json
 from summary import summarize_text
 import os
+import datetime
+import dateutil.parser
 from dotenv import load_dotenv
 
 #Load environment
 load_dotenv()
 
 def get_news(source, topic) -> tuple[str, str]:
+
+    #Get date for one week ago to set earliest possible news date
+    today = datetime.date.today()
+    week_ago = today - datetime.timedelta(days = 7)
+    week_ago = week_ago.isoformat()
+
     #Set up parameters for api query
     query_params = {
       "sources" : source,
       "q" : "{}".format(topic),
+      "from" : week_ago,
       "apiKey" : os.environ.get("scraper-api-key")
     }
 
@@ -29,6 +38,9 @@ def get_news(source, topic) -> tuple[str, str]:
 
     #Store response articles
     articles = res_json["articles"]
+
+    #Sort articles by date published
+    articles.sort(key = lambda item: dateutil.parser.parse(item["publishedAt"]).timestamp() * -1)
 
     if len(articles) == 0:
         return None, "No article found", "No articles found on the subject of " + topic + " from the source " + source
@@ -59,6 +71,15 @@ def get_top(country):
     article_infos = {}
 
     for article in articles:
-        article_infos[article["source"]["name"]] = [article["title"], article["content"], article["url"]]
+        title = article["title"]
+        source = article["source"]["name"]
+
+        title = title.replace(" " + source, "")
+        title = title[0 : len(title) - 2]
+        dash_last_occur = title.rfind('-')
+        if dash_last_occur > 0:
+            title = title[:dash_last_occur]
+
+        article_infos[source] = [title, article["content"], article["url"]]
 
     return article_infos
