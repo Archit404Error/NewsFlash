@@ -3,7 +3,7 @@ from newspaper import *
 import json
 from summary import summarize_text
 import os
-import datetime
+import datetime, time
 import dateutil.parser
 from dotenv import load_dotenv
 
@@ -55,8 +55,13 @@ def get_news(source, topic) -> tuple[str, str]:
     return article_url, newspaper_article.title, newspaper_article.text
 
 def get_top(country):
+    #Get date for one week ago to set earliest possible news date
+    today = datetime.date.today()
+
+
     query_params = {
       "country" : "{}".format(country),
+      "from" : today,
       "apiKey" : os.environ.get("scraper-api-key")
     }
 
@@ -68,7 +73,7 @@ def get_top(country):
 
     articles = res_json["articles"]
 
-    article_infos = {}
+    article_infos = [{}, time.time()]
 
     for article in articles:
         title = article["title"]
@@ -80,6 +85,6 @@ def get_top(country):
         if dash_last_occur > 0:
             title = title[:dash_last_occur]
 
-        article_infos[source] = [title, article["content"], article["url"]]
+        article_infos[0][source] = [title, article["content"], article["url"]]
 
     return article_infos

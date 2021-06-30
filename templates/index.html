@@ -57,7 +57,7 @@
     </div>
     <div id = "topHeadlines" class = "d-flex d-flex-column justify-content-center align-items-center" style = "min-height: 50vh;">
       <div class = "row">
-        {% for source, info_arr in top_articles.items() %}
+        {% for source, info_arr in top_articles[0].items() %}
         <div class="card offset-md-1" style="width: 18rem; margin-bottom: 5%;">
           <div class="card-body">
             <h5 class="card-title">{{info_arr[0]}}</h5>
