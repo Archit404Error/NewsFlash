@@ -6,6 +6,7 @@ import os
 import datetime, time
 import dateutil.parser
 from dotenv import load_dotenv
+from content_categorizer import classify_topic, sentiment_analysis
 
 #Load environment
 load_dotenv()
@@ -20,7 +21,8 @@ def get_news(source, topic) -> tuple[str, str]:
     #Set up parameters for api query
     query_params = {
       "sources" : source,
-      "q" : "{}".format(topic),
+      "qInTitle" : "+{}".format(topic),
+      "language" : "en",
       "from" : week_ago,
       "apiKey" : os.environ.get("scraper-api-key")
     }
@@ -33,8 +35,7 @@ def get_news(source, topic) -> tuple[str, str]:
 
     #If the resonse contains error code, break and return error
     if "code" in res_json.keys():
-        print("ERROR: " + res_json["code"] + " " + source)
-        return res_json["code"]
+        return None, "Error", res_json["code"]
 
     #Store response articles
     articles = res_json["articles"]
@@ -58,9 +59,10 @@ def get_top(country):
     #Get date for one week ago to set earliest possible news date
     today = datetime.date.today()
 
-
+    #Format parameters for API query
     query_params = {
       "country" : "{}".format(country),
+      "language" : "en",
       "from" : today,
       "apiKey" : os.environ.get("scraper-api-key")
     }
@@ -85,6 +87,6 @@ def get_top(country):
         if dash_last_occur > 0:
             title = title[:dash_last_occur]
 
-        article_infos[0][source] = [title, article["content"], article["url"]]
+        article_infos[0][source] = [title, article["content"], article["url"], classify_topic(title), sentiment_analysis(title)]
 
     return article_infos

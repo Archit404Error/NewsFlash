@@ -13,6 +13,28 @@
     <!-- Load Stylesheets -->
     <link type = "text/css" rel = "stylesheet" href = "/static/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    <!-- Filter Script -->
+    <script>
+      function filterTopHeadlines() {
+        selected = document.getElementById("filterSelect").value;
+        topHeadlines = document.getElementsByClassName("card");
+        for (var i = 0; i < topHeadlines.length; i++) {
+          var currCard = topHeadlines[i];
+          var cardCategory = document.getElementById(currCard.id + " category");
+          cardCategory = cardCategory.innerHTML;
+          if(selected != "All"){
+            if (cardCategory == selected) {
+              currCard.style.display = "";
+            } else {
+              currCard.style.display = "none";
+            }
+          } else {
+            currCard.style.display = "";
+          }
+        }
+      }
+    </script>
   </head>
   <body>
     <div id = "landing" class="d-flex flex-column justify-content-center align-items-center" style = "height: 75vh;">
@@ -55,13 +77,36 @@
         <div style = "height: 5vh"></div>
         <h2><span>Top Headlines</span></h2>
     </div>
+    <div id = "filter">
+      <div class = "row justify-content-center">
+        <form class = "col-md-10">
+          <select id = "filterSelect" class = "form-select" onchange = "filterTopHeadlines()">
+            <option selected value = "All">All Topics</option>
+            <option value = "Arts" >Arts</option>
+            <option value = "Business">Business</option>
+            <option value = "Computers">Computers</option>
+            <option value = "Games">Games</option>
+            <option value = "Health">Health</option>
+            <option value = "Home">Home</option>
+            <option value = "Recreation">Recreation</option>
+            <option value = "Science">Science</option>
+            <option value = "Society">Society</option>
+            <option value = "Sports">Sports</option>
+          </select>
+        </form>
+      </div>
+    </div>
     <div id = "topHeadlines" class = "d-flex d-flex-column justify-content-center align-items-center" style = "min-height: 50vh;">
       <div class = "row">
         {% for source, info_arr in top_articles[0].items() %}
-        <div class="card offset-md-1" style="width: 18rem; margin-bottom: 5%;">
+        <div id = "{{info_arr[0]}}" class="card offset-md-1" style="width: 18rem; margin-bottom: 5%;">
           <div class="card-body">
             <h5 class="card-title">{{info_arr[0]}}</h5>
-            <h6 class="card-subtitle mb-2 text-muted">{{source}}</h6>
+            <div class = "row">
+              <h6 class="card-subtitle mb-2 text-muted col-md-auto">{{source}}</h6>
+              <h6 id = "{{info_arr[0]}} category" class="card-subtitle mb-2 text-muted col-md-auto">{{info_arr[3]}}</h6>
+              <h6 class="card-subtitle mb-2 text-muted col-md-auto">{{(info_arr[4][1]*100)|round}}% {{info_arr[4][0]}}</h6>
+            </div>
             <p class="card-text">{{info_arr[1]}}</p>
             <a target="_blank" href={{info_arr[2]}} class="card-link">View Article</a>
           </div>

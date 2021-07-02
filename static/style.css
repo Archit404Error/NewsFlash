@@ -54,6 +54,12 @@
   color: white;
 }
 
+#filter select {
+  background-color: black;
+  border: 2px solid #2d6ff4;
+  color: #2d6ff4;
+}
+
 ::placeholder {
   color: #2d6ff4;
 }
