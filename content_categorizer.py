@@ -25,7 +25,8 @@ def classify_topic(topic) -> str:
     res_json = res.json()
 
     # Sort res by key, figuring out which topic was most likely match
-    ordered_res = dict(sorted(res_json.items(), key=lambda item: 1 - item[1]))
+    print(res_json.items())
+    ordered_res = dict(sorted(res_json.items(), key=lambda item: 1 - float(item[1])))
     # Gets the first key in the ordered dict(most confident)
     predicted_topic = (next(iter(ordered_res)))
     return predicted_topic
@@ -47,3 +48,5 @@ def sentiment_analysis(text) -> str:
     if res_json['positive'] > res_json['negative']:
         return ['positive', res_json['positive']]
     return ['negative', res_json['negative']]
+
+classify_topic("Joe Biden")
