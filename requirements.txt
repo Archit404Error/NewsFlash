@@ -7,6 +7,7 @@ feedfinder2==0.0.4
 feedparser==6.0.8
 filelock==3.0.12
 Flask==2.0.1
+gunicorn==20.1.0
 idna==2.10
 itsdangerous==2.0.1
 jieba3k==0.35.1
