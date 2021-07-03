@@ -48,5 +48,3 @@ def sentiment_analysis(text) -> str:
     if res_json['positive'] > res_json['negative']:
         return ['positive', res_json['positive']]
     return ['negative', res_json['negative']]
-
-classify_topic("Joe Biden")
