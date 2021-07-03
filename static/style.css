@@ -1,6 +1,49 @@
-.small-text-container{
+@keyframes info-bg {
+  0% { background-color: #5400fc; }
+  50% { background-color: #fc00c5; }
+  100% { background-color: #5400fc }
+}
+
+@keyframes conservative-bg {
+  0% { background-color: red; }
+  50% { background-color: #ff6554; }
+  100% { background-color: red; }
+}
+
+@keyframes liberal-bg {
+  0% { background-color: blue; }
+  50% { background-color: #54b5ff; }
+  100% { background-color: blue; }
+}
+
+input[type='range'] {
+  background: linear-gradient(to right, #82CFD0 0%, #82CFD0 50%, #fff 50%, #fff 100%);
+  border: solid 1px #82CFD0;
+  border-radius: 8px;
+  height: 7px;
+  width: 356px;
+  outline: none;
+  transition: background 450ms ease-in;
+  -webkit-appearance: none;
+  margin-bottom: 10%;
+}
+
+.small-text-container {
   padding-left: 3px;
   padding-right: 3px;
+}
+
+.medium-text-container {
+  color: white;
+  background-color: #0028f2;
+  border-radius: 5px;
+  padding: 3px;
+}
+
+.info-container {
+  border-radius: 5px;
+  color: white;
+  animation: info-bg 2.5s infinite;
 }
 
 .bias-center {
@@ -11,14 +54,14 @@
 
 .bias-conservative {
   border-radius: 5px;
-  background-color: red;
   color: white;
+  animation: conservative-bg 2.5s infinite;
 }
 
 .bias-liberal {
   border-radius: 5px;
-  background-color: blue;
   color: white;
+  animation: liberal-bg 2.5s infinite;
 }
 
 .article-link {

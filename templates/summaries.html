@@ -21,12 +21,16 @@
         button.innerHTML = "Show Less";
         button.onclick = function(){truncate(textId)};
       }
-      function truncate(textId){
+      function truncate(textId) {
         var element = document.getElementById(textId);
         var button = document.getElementById(textId + "Button");
         element.classList.add("text-truncate");
         button.innerHTML = "View Full Summary";
         button.onclick = function(){show(textId)};
+      }
+      function setSlider(sliderId, sliderVal) {
+        var slider = document.getElementById(sliderId);
+        slider.value = sliderVal;
       }
     </script>
 
@@ -43,12 +47,20 @@
           </div>
         </div>
           <div class = "row">
-            <div class = "col-md-6 offset-md-1">
-              <h2 class = "col-md-12"><span style = "color: white;">[{{(sentiments[loop.index - 1][1]*100)|round}}% {{sentiments[loop.index - 1][0]}}] ({{source}})</span></h2>
+            <div class = "col-md-3 offset-md-1">
+              <h2 class = "col-md-12"><span style = "color: white;">[{{(sentiments[loop.index - 1][1]*100)|round}}% {{sentiments[loop.index - 1][0]}}]</span></h2>
+              <input id = "{{source}} range" min="0" max="100" type="range" disabled />
+              <script>
+                setSlider('{{source}} range', {{(sentiments[loop.index - 1][1]*100)|round}});
+                document.getElementById('{{source}} range').style.background = 'linear-gradient(to right, #82CFD0 0%, #82CFD0 ' + {{(sentiments[loop.index - 1][1]*100)|round}} + '%, #fff ' + {{(sentiments[loop.index - 1][1]*100)|round}} + '%, white 100%)';
+              </script>
             </div>
           </div>
           <div class = "row">
             <div class = "offset-md-1 col-md-auto text-center">
+              <h6 class = "info-container small-text-container">{{source}}</h6>
+            </div>
+            <div class = "col-md-auto text-center">
               {% if biases[source] == 'conservative' %}
               <h6 class = "bias-conservative small-text-container">conservative</h6>
               {% elif biases[source] == 'liberal' %}
@@ -62,8 +74,8 @@
             </div>
           </div>
           <div class = "offset-md-1 col-md-10 ">
-            <h4 id = {{source}} class = "text-truncate"><span style = "color: white;">{{outlet_summaries[source][1]}}</span></h4>
-            <a id = "{{source}}Button" href = "javascript:;" onclick = "show('{{source}}')">View Full Summary</a>
+            <h4 id = {{source}} class = ""><span style = "color: white;"><span class = "medium-text-container">AI Auto-Generated Summary:</span> {{outlet_summaries[source][1]}}</span></h4>
+            <a id = "{{source}}Button" href = "javascript:;" onclick = "truncate('{{source}}')">Show Less</a>
           </div>
           <div style = "height: 5vh"></div>
         {% endfor %}
