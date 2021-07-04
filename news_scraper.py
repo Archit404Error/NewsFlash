@@ -56,7 +56,7 @@ def get_news(source, topic) -> tuple[str, str]:
         newspaper_article.parse()
         return article_url, newspaper_article.title, newspaper_article.text
     except:
-        return "http://news-flash-proj.herokuapp.com", "Article Forbidden", None
+        return "http://news-flash-proj.herokuapp.com", "No Article Found", "No Article Found"
 
 def get_top(country):
     #Get date for one week ago to set earliest possible news date
