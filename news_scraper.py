@@ -51,9 +51,12 @@ def get_news(source, topic) -> tuple[str, str]:
 
     #Parse article from URL and store text
     newspaper_article = Article(article_url)
-    newspaper_article.download()
-    newspaper_article.parse()
-    return article_url, newspaper_article.title, newspaper_article.text
+    try:
+        newspaper_article.download()
+        newspaper_article.parse()
+        return article_url, newspaper_article.title, newspaper_article.text
+    except:
+        return "http://news-flash-proj.herokuapp.com", "Article Forbidden", None
 
 def get_top(country):
     #Get date for one week ago to set earliest possible news date

@@ -19,7 +19,7 @@ def summaries() -> str:
     topic = request.form['topic']
     topic = topic.replace(" ", "+")
 
-    url = "http://localhost:5000/api?{}"
+    url = "http://news-flash-proj.herokuapp.com/api?{}"
     api_res = requests.get(url.format(topic))
     res_json = api_res.json()
 
