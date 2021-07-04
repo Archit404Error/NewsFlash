@@ -35,7 +35,7 @@ input[type='range'] {
 
 .medium-text-container {
   color: white;
-  background-color: #0028f2;
+  background: linear-gradient(to right, #34c9eb, #0028f2);
   border-radius: 5px;
   padding: 3px;
 }
@@ -84,6 +84,7 @@ input[type='range'] {
   color: #2d6ff4;
   background-color: black;
   border: 2px solid #2d6ff4;
+  padding: 2.5%;
   transition-duration: 0.5s;
 }
 

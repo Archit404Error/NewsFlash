@@ -78,8 +78,8 @@
         <h2><span>Top Headlines</span></h2>
     </div>
     <div id = "filter">
-      <div class = "row justify-content-center">
-        <form class = "col-md-10">
+      <div class = "row">
+        <form class = "col-md-6 offset-md-3">
           <select id = "filterSelect" class = "form-select" onchange = "filterTopHeadlines()">
             <option selected value = "All">All Topics</option>
             <option value = "Arts" >Arts</option>
@@ -96,21 +96,41 @@
         </form>
       </div>
     </div>
-    <div id = "topHeadlines" class = "d-flex d-flex-column justify-content-center align-items-center" style = "min-height: 50vh;">
-      <div class = "row">
+    <div id = "topHeadlines" style = "min-height: 50vh;">
+        {% set card_per_row = 3 %}
         {% for source, info_arr in top_articles[0].items() %}
-        <div id = "{{info_arr[0]}}" class="card offset-md-1" style="width: 18rem; margin-bottom: 5%;">
-          <div class="card-body">
-            <h5 class="card-title">{{info_arr[0]}}</h5>
-            <div class = "row">
-              <h6 class="card-subtitle mb-2 text-muted col-md-auto">{{source}}</h6>
-              <h6 id = "{{info_arr[0]}} category" class="card-subtitle mb-2 text-muted col-md-auto">{{info_arr[3]}}</h6>
-              <h6 class="card-subtitle mb-2 text-muted col-md-auto">{{(info_arr[4][1]*100)|round}}% {{info_arr[4][0]}}</h6>
+          {% if loop.index % card_per_row == 1 %}
+            <div class = "row justify-content-center">
+              <div id = "{{info_arr[0]}}" class="card col-md-3" style="margin-bottom: 5%;">
+                <div class="card-body">
+                  <h5 class="card-title">{{info_arr[0]}}</h5>
+                  <div class = "row">
+                    <h6 class="card-subtitle mb-2 text-muted col-md-auto">{{source}}</h6>
+                    <h6 id = "{{info_arr[0]}} category" class="card-subtitle mb-2 text-muted col-md-auto">{{info_arr[3]}}</h6>
+                    <h6 class="card-subtitle mb-2 text-muted col-md-auto">{{(info_arr[4][1]*100)|round}}% {{info_arr[4][0]}}</h6>
+                  </div>
+                  <p class="card-text">{{info_arr[1]}}</p>
+                  <a target="_blank" href={{info_arr[2]}} class="card-link">View Article</a>
+                </div>
+              </div>
+          {% endif %}
+          {% if loop.index % card_per_row != 1 %}
+            <div id = "{{info_arr[0]}}" class="card col-md-3 offset-md-1" style="margin-bottom: 5%;">
+              <div class="card-body">
+                <h5 class="card-title">{{info_arr[0]}}</h5>
+                <div class = "row">
+                  <h6 class="card-subtitle mb-2 text-muted col-md-auto">{{source}}</h6>
+                  <h6 id = "{{info_arr[0]}} category" class="card-subtitle mb-2 text-muted col-md-auto">{{info_arr[3]}}</h6>
+                  <h6 class="card-subtitle mb-2 text-muted col-md-auto">{{(info_arr[4][1]*100)|round}}% {{info_arr[4][0]}}</h6>
+                </div>
+                <p class="card-text">{{info_arr[1]}}</p>
+                <a target="_blank" href={{info_arr[2]}} class="card-link">View Article</a>
+              </div>
             </div>
-            <p class="card-text">{{info_arr[1]}}</p>
-            <a target="_blank" href={{info_arr[2]}} class="card-link">View Article</a>
-          </div>
-        </div>
+          {% endif %}
+          {% if loop.index % card_per_row == 0 %}
+            </div>
+          {% endif %}
         {% endfor %}
       </div>
     </div>
