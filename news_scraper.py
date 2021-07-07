@@ -42,7 +42,7 @@ def get_news(sources, topic) -> tuple[str, str]:
 
     #If the resonse contains error code, break and return error
     if "code" in res_json.keys():
-        return None, "Error", res_json["code"]
+        return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', res_json["code"]]}
 
     #Store response articles
     articles = res_json["articles"]
@@ -51,7 +51,7 @@ def get_news(sources, topic) -> tuple[str, str]:
     articles.sort(key = lambda item: dateutil.parser.parse(item["publishedAt"]).timestamp() * -1)
 
     if len(articles) == 0:
-        return None, "No article found", "No articles found on the subject of " + topic + " from the source " + source
+        return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', 'No recent news on the topic of ' + topic]}
 
     parsed_articles = {}
 

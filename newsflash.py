@@ -33,7 +33,8 @@ category_to_list_map = {
                          "Society" : political_sources,
                          "Health" : political_sources,
                          "Games" : political_sources,
-                         "Arts" : political_sources
+                         "Arts" : political_sources,
+                         "Home" : political_sources
                        }
 
 def collect_news(topic):
@@ -52,10 +53,13 @@ def collect_news(topic):
     parsed_articles = get_news(source_dict, topic)
 
     full_texts = {}
-    for source_id, parsed_arr in parsed_articles.items():
-        article_text = parsed_arr[2]
-        full_texts[source_id] = (article_text)
-        parsed_articles[source_id] = [parsed_arr[0], parsed_arr[1], summarize_text(article_text), biases[source_id]]
+    try:
+        for source_id, parsed_arr in parsed_articles.items():
+            article_text = parsed_arr[2]
+            full_texts[source_id] = (article_text)
+            parsed_articles[source_id] = [parsed_arr[0], parsed_arr[1], summarize_text(article_text), biases[source_id]]
+    except:
+        print(parsed_articles)
 
     sentiments = sentiment_analysis(full_texts)
     return parsed_articles, sentiments

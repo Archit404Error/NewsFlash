@@ -7,7 +7,7 @@ load_dotenv()
 
 '''
 Topic List(Provided by API)
-Arts, Business, Computers, Games, Health, Home, Recreation,Science, Society and Sports
+Arts, Business, Computers, Games, Health, Home, Recreation, Science, Society and Sports
 '''
 
 def classify_topic(topic) -> str:
