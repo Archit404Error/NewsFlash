@@ -37,13 +37,6 @@ category_to_list_map = {
                        }
 
 def collect_news(topic):
-    #Initialize summaries and article links dictionaries
-    outlet_summaries = {}
-    article_links = {}
-
-    #Initialize sentiments matrix
-    sentiments = []
-
     #Use classification function and store result
     topic_category = classify_topic(topic)
 
@@ -52,15 +45,17 @@ def collect_news(topic):
 
     #Determine source list based upon categorization
     sources = category_to_list_map[topic_category]
-
+    source_dict = {}
     for source in sources:
-        article_link, article_title, full_text = get_news(source, topic)
+        source_dict[source] = False
 
-        #Perform sentiment analsysis on text and store results
-        sentiments.append(sentiment_analysis(full_text))
-        #Summarize article text to enable faster reading
-        outlet_summaries[source] = [article_title, summarize_text(full_text)]
-        #Create key value pair in dictionary using source and link
-        article_links[source] = article_link
+    parsed_articles = get_news(source_dict, topic)
 
-    return sources, outlet_summaries, biases, article_links, sentiments
+    full_texts = {}
+    for source_id, parsed_arr in parsed_articles.items():
+        article_text = parsed_arr[2]
+        full_texts[source_id] = (article_text)
+        parsed_articles[source_id] = [parsed_arr[0], parsed_arr[1], summarize_text(article_text), biases[source_id]]
+
+    sentiments = sentiment_analysis(full_texts)
+    return parsed_articles, sentiments

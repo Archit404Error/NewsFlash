@@ -24,14 +24,10 @@ def summaries() -> str:
     res_json = api_res.json()
 
     topic = res_json["topic"]
-    sources = res_json["sources"]
-    outlet_summaries = res_json["summaries"]
-    biases = res_json["biases"]
-    article_links = res_json["articles"]
+    parsed_articles = res_json["parsed_articles"]
     sentiments = res_json["sentiments"]
 
-    return render_template("summaries.html", topic = topic, sources = sources,
-    outlet_summaries = outlet_summaries, biases = biases, article_links = article_links, sentiments = sentiments)
+    return render_template("summaries.html", topic = topic, parsed_articles = parsed_articles, sentiments = sentiments)
 
 @app.route('/trending', methods=['GET', 'POST'])
 def trending() -> str:
@@ -44,9 +40,9 @@ def apiRes() -> str:
     topic = ""
     for item in request.args:
         topic = item
-    sources, outlet_summaries, biases, article_links, sentiments = cache_query('query_cache.json', topic)
+    parsed_articles, sentiments = cache_query('query_cache.json', topic)
 
-    return jsonify(topic = topic, articles = article_links, summaries = outlet_summaries, sources = sources, biases = biases, sentiments = sentiments)
+    return jsonify(topic = topic, parsed_articles = parsed_articles, sentiments = sentiments)
 
 if __name__ == "__main__":
     app.run(debug=True)

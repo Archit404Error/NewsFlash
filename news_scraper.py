@@ -11,7 +11,14 @@ from content_categorizer import classify_topic, sentiment_analysis
 #Load environment
 load_dotenv()
 
-def get_news(source, topic) -> tuple[str, str]:
+def get_news(sources, topic) -> tuple[str, str]:
+
+    source_str = ""
+
+    for source, found_val in sources.items():
+        source_str += source + ", "
+
+    source_str = source_str[0 : len(source_str) - 2]
 
     #Get date for one week ago to set earliest possible news date
     today = datetime.date.today()
@@ -20,7 +27,7 @@ def get_news(source, topic) -> tuple[str, str]:
 
     #Set up parameters for api query
     query_params = {
-      "sources" : source,
+      "sources" : source_str,
       "qInTitle" : "+{}".format(topic),
       "language" : "en",
       "from" : week_ago,
@@ -46,17 +53,20 @@ def get_news(source, topic) -> tuple[str, str]:
     if len(articles) == 0:
         return None, "No article found", "No articles found on the subject of " + topic + " from the source " + source
 
-    #Get URL of first returned article to find most recent/relevant article from source
-    article_url = articles[0]["url"]
+    parsed_articles = {}
 
-    #Parse article from URL and store text
-    newspaper_article = Article(article_url)
-    try:
-        newspaper_article.download()
-        newspaper_article.parse()
-        return article_url, newspaper_article.title, newspaper_article.text
-    except:
-        return "http://news-flash-proj.herokuapp.com", "No Article Found", "No Article Found"
+    for article in articles:
+        source_id = article["source"]["id"]
+        article_from_id_exists = sources[source_id]
+        if article_from_id_exists == False:
+            article_url = article["url"]
+            newspaper_article = Article(article_url)
+            newspaper_article.download()
+            newspaper_article.parse()
+            parsed_articles[source_id] = [article_url, newspaper_article.title, newspaper_article.text]
+            sources[article["source"]["id"]] = True
+
+    return parsed_articles
 
 def get_top(country):
     #Get date for one week ago to set earliest possible news date
@@ -79,6 +89,7 @@ def get_top(country):
     articles = res_json["articles"]
 
     article_infos = [{}, time.time()]
+    full_texts = {}
 
     for article in articles:
         title = article["title"]
@@ -90,6 +101,14 @@ def get_top(country):
         if dash_last_occur > 0:
             title = title[:dash_last_occur]
 
-        article_infos[0][source] = [title, article["content"], article["url"], classify_topic(title), sentiment_analysis(title)]
+        full_texts[source] = title
+
+        article_infos[0][source] = [title, article["content"], article["url"], classify_topic(title)]
+
+    sen_res = sentiment_analysis(full_texts)
+
+    for article in articles:
+        source = article["source"]["name"]
+        article_infos[0][source].append(sen_res[source])
 
     return article_infos

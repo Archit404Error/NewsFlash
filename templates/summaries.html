@@ -40,24 +40,24 @@
       <div class = "col-md-6 offset-md-3 text-center">
         <h1><span style = "color: white;">Showing Summaries For: {{topic}}</span></h1>
       </div>
-      {% for source in sources %}
+      {% for source, parsed_arr in parsed_articles.items() %}
         <div class = "row">
           <div class = "col-md-11 offset-md-1">
-            <h2 class = "col-md-12"><span style = "color: white;">{{outlet_summaries[source][0]}}</span></h2>
+            <h2 class = "col-md-12"><span style = "color: white;">{{parsed_arr[1]}}</span></h2>
           </div>
         </div>
-          {% if outlet_summaries[source][0] != 'No article found' %}
+          {% if parsed_arr[0] != 'No article found' %}
           <div class = "row">
             <div class = "col-md-3 offset-md-1">
-              <h2 class = "col-md-12"><span style = "color: white;">[{{(sentiments[loop.index - 1][1]*100)|round}}% {{sentiments[loop.index - 1][0]}}]</span></h2>
+              <h2 class = "col-md-12"><span style = "color: white;">[{{(sentiments[source][1]*100)|round}}% {{sentiments[source][0]}}]</span></h2>
               <input id = "{{source}} range" min="0" max="100" type="range" disabled />
               <script>
-                if ("{{sentiments[loop.index - 1][0]}}" == "positive"){
-                  setSlider('{{source}} range', {{(sentiments[loop.index - 1][1]*100)|round}});
-                  document.getElementById('{{source}} range').style.background = 'linear-gradient(to right, green 0%, green ' + {{(sentiments[loop.index - 1][1]*100)|round}} + '%, #fff ' + {{(sentiments[loop.index - 1][1]*100)|round}} + '%, white 100%)';
+                if ("{{sentiments[source][0]}}" == "positive"){
+                  setSlider('{{source}} range', {{(sentiments[source][1]*100)|round}});
+                  document.getElementById('{{source}} range').style.background = 'linear-gradient(to right, green 0%, green ' + {{(sentiments[source][1]*100)|round}} + '%, #fff ' + {{(sentiments[source][1]*100)|round}} + '%, white 100%)';
                 } else {
-                  setSlider('{{source}} range', 100 - {{(sentiments[loop.index - 1][1]*100)|round}});
-                  document.getElementById('{{source}} range').style.background = 'linear-gradient(to left, red 0%, red ' + {{ (sentiments[loop.index - 1][1]*100)|round}} + '%, #fff ' + {{(sentiments[loop.index - 1][1]*100)|round}} + '%, white 100%)';
+                  setSlider('{{source}} range', 100 - {{(sentiments[source][1]*100)|round}});
+                  document.getElementById('{{source}} range').style.background = 'linear-gradient(to left, red 0%, red ' + {{ (sentiments[source][1]*100)|round}} + '%, #fff ' + {{(sentiments[source][1]*100)|round}} + '%, white 100%)';
                 }
               </script>
             </div>
@@ -68,21 +68,21 @@
               <h6 class = "info-container small-text-container">{{source}}</h6>
             </div>
             <div class = "col-md-auto text-center">
-              {% if biases[source] == 'conservative' %}
+              {% if parsed_arr[3] == 'conservative' %}
               <h6 class = "bias-conservative small-text-container">conservative</h6>
-              {% elif biases[source] == 'liberal' %}
+              {% elif parsed_arr[3] == 'liberal' %}
               <h6 class = "bias-liberal small-text-container">liberal</h6>
               {% else %}
               <h6 class = "bias-center small-text-container">centrist</h6>
               {% endif %}
             </div>
             <div class = "col-md-auto text-center">
-              <a target = "_blank" href = {{article_links[source]}}><h6 class = "article-link small-text-container"><i class = "fa fa-external-link"></i> Read full article</h6></a>
+              <a target = "_blank" href = {{parsed_arr[0]}}><h6 class = "article-link small-text-container"><i class = "fa fa-external-link"></i> Read full article</h6></a>
             </div>
           </div>
-          {% if outlet_summaries[source][0] != 'No article found' %}
+          {% if parsed_arr[0] != 'No article found' %}
           <div class = "offset-md-1 col-md-10 ">
-            <h4 id = {{source}} class = ""><span style = "color: white;"><span class = "medium-text-container">AI Auto-Generated Summary:</span> {{outlet_summaries[source][1]}}</span></h4>
+            <h4 id = {{source}} class = ""><span style = "color: white;"><span class = "medium-text-container">AI Auto-Generated Summary:</span> {{parsed_arr[2]}}</span></h4>
             <a id = "{{source}}Button" href = "javascript:;" onclick = "truncate('{{source}}')">Show Less</a>
           </div>
           {% endif %}
