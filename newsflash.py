@@ -53,13 +53,14 @@ def collect_news(topic):
     parsed_articles = get_news(source_dict, topic)
 
     full_texts = {}
-    try:
-        for source_id, parsed_arr in parsed_articles.items():
-            article_text = parsed_arr[2]
-            full_texts[source_id] = (article_text)
-            parsed_articles[source_id] = [parsed_arr[0], parsed_arr[1], summarize_text(article_text), biases[source_id]]
-    except:
-        print(parsed_articles)
+    for source_id, parsed_arr in parsed_articles.items():
+        article_text = parsed_arr[2]
+        full_texts[source_id] = (article_text)
+        if source_id in biases.keys():
+            bias = biases[source_id]
+        else:
+            bias = "centrist"
+        parsed_articles[source_id] = [parsed_arr[0], parsed_arr[1], summarize_text(article_text), bias]
 
     sentiments = sentiment_analysis(full_texts)
     return parsed_articles, sentiments
