@@ -59,8 +59,8 @@ def trending_news(cache_path):
     except:
         cached_list = []
 
-    cached_list.sort(key=lambda stored: -1 * stored[5])
-    cached_list = filter(lambda story: story[5] > 1, cached_list)
+    cached_list.sort(key=lambda stored: -1 * stored[3])
+    cached_list = filter(lambda story: story[3] > 1, cached_list)
 
     trending_topics = []
 
