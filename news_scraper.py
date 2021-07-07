@@ -62,8 +62,11 @@ def get_news(sources, topic) -> tuple[str, str]:
             article_url = article["url"]
             newspaper_article = Article(article_url)
             newspaper_article.download()
-            newspaper_article.parse()
-            parsed_articles[source_id] = [article_url, newspaper_article.title, newspaper_article.text]
+            try:
+                newspaper_article.parse()
+                parsed_articles[source_id] = [article_url, newspaper_article.title, newspaper_article.text]
+            except:
+                parsed_articles[source_id] = [article_url, "Article summary forbidden", "The source prevented automatic article summarization, but the full article can still be read via the link."]
             sources[article["source"]["id"]] = True
 
     return parsed_articles
