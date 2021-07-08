@@ -37,9 +37,7 @@ def trending() -> str:
 @app.route('/api')
 def apiRes() -> str:
     #Store user topic from request
-    topic = ""
-    for item in request.args:
-        topic = item
+    topic = list(request.args)[0]
     parsed_articles, sentiments = cache_query('query_cache.json', topic)
 
     return jsonify(topic = topic, parsed_articles = parsed_articles, sentiments = sentiments)

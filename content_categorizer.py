@@ -25,7 +25,6 @@ def classify_topic(topic) -> str:
     res_json = res.json()
 
     # Sort res by key, figuring out which topic was most likely match
-    print(res_json.items())
     ordered_res = dict(sorted(res_json.items(), key=lambda item: 1 - float(item[1])))
     # Gets the first key in the ordered dict(most confident)
     predicted_topic = (next(iter(ordered_res)))

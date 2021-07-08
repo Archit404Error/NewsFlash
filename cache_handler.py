@@ -11,6 +11,7 @@ def cache_query(cache_path, topic):
         cached_list = []
     #Reopen cache file so we can re-read from it
     cache = open(cache_path, 'r+')
+    parsed_articles = {}
     if topic in cache.read():
         for stored in cached_list:
             found_in_desc = False

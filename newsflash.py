@@ -55,7 +55,7 @@ def collect_news(topic):
     full_texts = {}
     for source_id, parsed_arr in parsed_articles.items():
         article_text = parsed_arr[2]
-        full_texts[source_id] = (article_text)
+        full_texts[source_id] = article_text
         if source_id in biases.keys():
             bias = biases[source_id]
         else:
