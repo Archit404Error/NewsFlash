@@ -20,6 +20,7 @@ def index() -> str:
 def summaries() -> str:
     #Store user topic from homepage post request
     topic = request.form['topic']
+    topic = topic.title()
     topic = topic.replace(" ", "+")
 
     url = "http://news-flash-proj.herokuapp.com/api?{}"
