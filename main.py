@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index() -> str:
-    url = "http://localhost:5000/topApi"
+    url = "http://news-flash-proj.herokuapp.com/topApi"
     top_res = requests.get(url)
     top_articles = top_res.json()["top_articles"]
     return render_template("index.html", top_articles = top_articles)
