@@ -11,7 +11,10 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET', 'POST'])
 def index() -> str:
-    return render_template("index.html", top_articles = top_news("top_cache.json"))
+    url = "http://localhost:5000/topApi"
+    top_res = requests.get(url)
+    top_articles = top_res.json()["top_articles"]
+    return render_template("index.html", top_articles = top_articles)
 
 @app.route('/summaries', methods=['GET', 'POST'])
 def summaries() -> str:
@@ -41,6 +44,10 @@ def apiRes() -> str:
     parsed_articles, sentiments = cache_query('query_cache.json', topic)
 
     return jsonify(topic = topic, parsed_articles = parsed_articles, sentiments = sentiments)
+
+@app.route('/topApi')
+def topRes() -> str:
+    return jsonify(top_articles = top_news("top_cache.json"))
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -52,7 +52,7 @@ def summarize_text(text) -> str:
     summary = ''
     for sentence in sentences:
         #Set sentence value to be greater than 1.5 * average to create relatively short summaries
-        if (sentence in sentenceValue) and (sentenceValue[sentence] > (1.5 * average)):
+        if (sentence in sentenceValue) and (sentenceValue[sentence] > (1.5 * average)) and (not sentence.isupper()):
             summary += " " + sentence
 
     if len(summary) == 0:
