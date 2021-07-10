@@ -28,6 +28,7 @@ def classify_topic(topic) -> str:
     #Send get request to API and store response
     res = requests.post(endpoint_url, headers=headers, json=query_params)
     res_json = res.json()
+    print(res_json)
     res_json = res_json[0]["classification"]
 
     # Sort res by key, figuring out which topic was most likely match
