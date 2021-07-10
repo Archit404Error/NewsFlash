@@ -11,23 +11,29 @@ Arts, Business, Computers, Games, Health, Home, Recreation, Science, Society and
 '''
 
 def classify_topic(topic) -> str:
+    #Set up necessary headers for API
+    headers = {
+        "Content-Type" : "application/json",
+        "Authorization" : "Token " + os.environ.get("categorization-api-key")
+    }
+
     #Set up query parameters for UClassify API
     query_params = {
-        "readKey" : os.environ.get("categorization-api-key"),
-        "text" : topic
+        "texts" : [topic]
     }
 
     #Format endpoint based on classifier publisher and classifier needed
     endpoint_url = "https://api.uclassify.com/v1/{}/{}/classify".format("uclassify", "topics")
 
     #Send get request to API and store response
-    res = requests.get(endpoint_url, params=query_params)
+    res = requests.post(endpoint_url, headers=headers, json=query_params)
     res_json = res.json()
+    res_json = res_json[0]["classification"]
 
     # Sort res by key, figuring out which topic was most likely match
-    ordered_res = dict(sorted(res_json.items(), key=lambda item: 1 - float(item[1])))
+    ordered_res = sorted(res_json, key = lambda class_dict: 1 - class_dict['p'])
     # Gets the first key in the ordered dict(most confident)
-    predicted_topic = (next(iter(ordered_res)))
+    predicted_topic = ordered_res[0]['className']
     return predicted_topic
 
 def sentiment_analysis(texts) -> dict[str, float]:
