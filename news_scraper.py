@@ -19,6 +19,7 @@ def get_news(sources, topic) -> tuple[str, str]:
         source_str += source + ", "
 
     source_str = source_str[0 : len(source_str) - 2]
+    print(source_str)
 
     #Get date for one week ago to set earliest possible news date
     today = datetime.date.today()
@@ -46,6 +47,7 @@ def get_news(sources, topic) -> tuple[str, str]:
 
     #Store response articles
     articles = res_json["articles"]
+    print(articles)
 
     #Sort articles by date published
     articles.sort(key = lambda item: dateutil.parser.parse(item["publishedAt"]).timestamp() * -1)
@@ -57,6 +59,8 @@ def get_news(sources, topic) -> tuple[str, str]:
 
     for article in articles:
         source_id = article["source"]["id"]
+        if not source_id in sources.keys():
+            sources[source_id] = False
         article_from_id_exists = sources[source_id]
         if article_from_id_exists == False:
             article_url = article["url"]
@@ -106,12 +110,14 @@ def get_top(country):
 
         full_texts[source] = title
 
-        article_infos[0][source] = [title, article["content"], article["url"], classify_topic(title)]
+        article_infos[0][source] = [title, article["content"], article["url"]]
 
+    class_res = classify_topic(full_texts)
     sen_res = sentiment_analysis(full_texts)
 
     for article in articles:
         source = article["source"]["name"]
+        article_infos[0][source].append(class_res[source])
         article_infos[0][source].append(sen_res[source])
 
     return article_infos

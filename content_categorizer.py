@@ -10,7 +10,7 @@ Topic List(Provided by API)
 Arts, Business, Computers, Games, Health, Home, Recreation, Science, Society and Sports
 '''
 
-def classify_topic(topic) -> str:
+def classify_topic(titles) -> str:
     #Set up necessary headers for API
     headers = {
         "Content-Type" : "application/json",
@@ -19,7 +19,7 @@ def classify_topic(topic) -> str:
 
     #Set up query parameters for UClassify API
     query_params = {
-        "texts" : [topic]
+        "texts" : list(titles.values())
     }
 
     #Format endpoint based on classifier publisher and classifier needed
@@ -28,14 +28,16 @@ def classify_topic(topic) -> str:
     #Send get request to API and store response
     res = requests.post(endpoint_url, headers=headers, json=query_params)
     res_json = res.json()
-    print(res_json)
-    res_json = res_json[0]["classification"]
 
-    # Sort res by key, figuring out which topic was most likely match
-    ordered_res = sorted(res_json, key = lambda class_dict: 1 - class_dict['p'])
-    # Gets the first key in the ordered dict(most confident)
-    predicted_topic = ordered_res[0]['className']
-    return predicted_topic
+    classifications = {}
+    sources = list(titles.keys())
+
+    for i, res_dict in enumerate(res_json):
+        category_list = res_dict["classification"]
+        ordered_cats = sorted(category_list, key = lambda cat_dict : 1 - cat_dict['p'])
+        classifications[sources[i]] = ordered_cats[0]['className']
+
+    return classifications
 
 def sentiment_analysis(texts) -> dict[str, float]:
     #Set up necessary headers for API
