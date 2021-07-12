@@ -47,12 +47,20 @@ def collect_news(topic):
 
     #Determine source list based upon categorization
     sources = category_to_list_map[topic_category]
-    print(sources)
     source_dict = {}
     for source in sources:
         source_dict[source] = False
 
     parsed_articles = get_news(source_dict, topic)
+
+    print(parsed_articles)
+
+    if 'No Source Found' in parsed_articles.keys():
+        source_dict = {}
+        sources = category_to_list_map["Society"]
+        for source in sources:
+            source_dict[source] = False
+        parsed_articles = get_news(source_dict, topic)
 
     full_texts = {}
     for source_id, parsed_arr in parsed_articles.items():

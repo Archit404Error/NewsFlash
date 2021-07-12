@@ -47,7 +47,6 @@ def get_news(sources, topic) -> tuple[str, str]:
 
     #Store response articles
     articles = res_json["articles"]
-    print(articles)
 
     #Sort articles by date published
     articles.sort(key = lambda item: dateutil.parser.parse(item["publishedAt"]).timestamp() * -1)
