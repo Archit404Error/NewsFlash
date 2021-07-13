@@ -116,11 +116,12 @@ def get_top(country):
     for article in articles:
         title = article["title"]
         source = article["source"]["name"]
+        print(source)
 
         title = title.replace(" " + source, "")
         title = title[0 : len(title) - 2]
         dash_last_occur = title.rfind('-')
-        if dash_last_occur > 0:
+        if dash_last_occur > 0 and title[dash_last_occur + 1:].strip() == source:
             title = title[:dash_last_occur]
 
         full_texts[source] = title
