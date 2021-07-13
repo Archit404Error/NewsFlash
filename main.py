@@ -16,6 +16,10 @@ def index() -> str:
     top_articles = top_res.json()["top_articles"]
     return render_template("index.html", top_articles = top_articles)
 
+@app.route('/mobile')
+def mobile() -> str:
+    return render_template("mobile.html")
+
 @app.route('/summaries', methods=['GET', 'POST'])
 def summaries() -> str:
     #Store user topic from homepage post request
