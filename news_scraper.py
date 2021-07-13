@@ -52,7 +52,23 @@ def get_news(sources, topic) -> tuple[str, str]:
     articles.sort(key = lambda item: dateutil.parser.parse(item["publishedAt"]).timestamp() * -1)
 
     if len(articles) == 0:
-        return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', 'No recent news on the topic of ' + topic]}
+        #Create looser params
+        query_params = {
+          "sources" : source_str,
+          "q" : "{}".format(topic),
+          "language" : "en",
+          "from" : week_ago,
+          "apiKey" : os.environ.get("scraper-api-key")
+        }
+        res = requests.get(endpoint_url, params=query_params)
+        res_json = res.json()
+
+        #Store response articles
+        articles = res_json["articles"]
+
+        if len(articles) == 0:
+            #Return if still nothing found
+            return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', 'No recent news on the topic of ' + topic]}
 
     parsed_articles = {}
 

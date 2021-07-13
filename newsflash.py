@@ -53,8 +53,6 @@ def collect_news(topic):
 
     parsed_articles = get_news(source_dict, topic)
 
-    print(parsed_articles)
-
     if 'No Source Found' in parsed_articles.keys():
         source_dict = {}
         sources = category_to_list_map["Society"]
