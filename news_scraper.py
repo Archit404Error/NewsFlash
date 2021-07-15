@@ -115,16 +115,25 @@ def get_top(country):
     for article in articles:
         title = article["title"]
         source = article["source"]["name"]
+        image = ""
 
-        title = title.replace(" " + source, "")
-        title = title[0 : len(title) - 2]
-        dash_last_occur = title.rfind('-')
-        if dash_last_occur > 0 and title[dash_last_occur + 1:].strip() == source:
-            title = title[:dash_last_occur]
+        try:
+            newspaper_article = Article(article["url"])
+            newspaper_article.download()
+            newspaper_article.parse()
+            title = newspaper_article.title
+            image = newspaper_article.top_image
+        except:
+            title = title.replace(" " + source, "")
+            title = title[0 : len(title) - 2]
+            dash_last_occur = title.rfind('-')
+            if dash_last_occur > 0 and title[dash_last_occur + 1:].strip() == source:
+                title = title[:dash_last_occur]
+            image = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"
 
         full_texts[source] = title
 
-        article_infos[0][source] = [title, article["content"], article["url"]]
+        article_infos[0][source] = [title, article["content"], article["url"], image]
 
     class_res = classify_topic(full_texts)
     sen_res = sentiment_analysis(full_texts)
