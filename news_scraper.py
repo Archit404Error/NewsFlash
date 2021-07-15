@@ -19,7 +19,6 @@ def get_news(sources, topic) -> tuple[str, str]:
         source_str += source + ", "
 
     source_str = source_str[0 : len(source_str) - 2]
-    print(source_str)
 
     #Get date for one week ago to set earliest possible news date
     today = datetime.date.today()
@@ -43,7 +42,7 @@ def get_news(sources, topic) -> tuple[str, str]:
 
     #If the resonse contains error code, break and return error
     if "code" in res_json.keys():
-        return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', res_json["code"]]}
+        return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', res_json["code"], "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"]}
 
     #Store response articles
     articles = res_json["articles"]
@@ -68,7 +67,7 @@ def get_news(sources, topic) -> tuple[str, str]:
 
         if len(articles) == 0:
             #Return if still nothing found
-            return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', 'No recent news on the topic of ' + topic]}
+            return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', 'No recent news on the topic of ' + topic, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"]}
 
     parsed_articles = {}
 
@@ -83,9 +82,9 @@ def get_news(sources, topic) -> tuple[str, str]:
             newspaper_article.download()
             try:
                 newspaper_article.parse()
-                parsed_articles[source_id] = [article_url, newspaper_article.title, newspaper_article.text]
+                parsed_articles[source_id] = [article_url, newspaper_article.title, newspaper_article.text, newspaper_article.top_image]
             except:
-                parsed_articles[source_id] = [article_url, "Article summary forbidden", "The source prevented automatic article summarization, but the full article can still be read via the link."]
+                parsed_articles[source_id] = [article_url, "Article summary forbidden", "The source prevented automatic article summarization, but the full article can still be read via the link.", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"]
             sources[article["source"]["id"]] = True
 
     return parsed_articles
@@ -116,7 +115,6 @@ def get_top(country):
     for article in articles:
         title = article["title"]
         source = article["source"]["name"]
-        print(source)
 
         title = title.replace(" " + source, "")
         title = title[0 : len(title) - 2]
