@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, jsonify
 from cache_handler import cache_query, trending_news, top_news
+from newsflash import analyze_article
 import json
 import requests
 
@@ -53,6 +54,14 @@ def apiRes() -> str:
 @app.route('/topApi')
 def topRes() -> str:
     return jsonify(top_articles = top_news("top_cache.json"))
+
+@app.route('/analysisApi')
+def articleAnalysis() -> str:
+    article_url = list(request.args)[0]
+
+    title, keywords, summary = analyze_article(article_url)
+    return jsonify(title = title, keywords = keywords, summary = summary)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

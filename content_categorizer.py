@@ -33,7 +33,6 @@ def classify_topic(titles) -> str:
     sources = list(titles.keys())
 
     for i, res_dict in enumerate(res_json):
-        print(res_dict)
         category_list = res_dict["classification"]
         ordered_cats = sorted(category_list, key = lambda cat_dict : 1 - cat_dict['p'])
         classifications[sources[i]] = ordered_cats[0]['className']

@@ -1,3 +1,4 @@
+from newspaper import *
 from content_categorizer import classify_topic, sentiment_analysis
 from news_scraper import get_news
 from summary import summarize_text
@@ -72,3 +73,14 @@ def collect_news(topic):
 
     sentiments = sentiment_analysis(full_texts)
     return parsed_articles, sentiments
+
+def analyze_article(url):
+    parsed_article = Article(url)
+    parsed_article.download()
+    parsed_article.parse()
+
+    title = parsed_article.title
+
+    parsed_article.nlp()
+
+    return title, parsed_article.keywords, parsed_article.summary
