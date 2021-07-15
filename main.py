@@ -59,8 +59,8 @@ def topRes() -> str:
 def articleAnalysis() -> str:
     article_url = list(request.args)[0]
 
-    title, keywords, summary = analyze_article(article_url)
-    return jsonify(title = title, keywords = keywords, summary = summary)
+    title, image, keywords, summary = analyze_article(article_url)
+    return jsonify(title = title, image = image, keywords = keywords, summary = summary)
 
 
 if __name__ == "__main__":

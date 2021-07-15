@@ -80,7 +80,8 @@ def analyze_article(url):
     parsed_article.parse()
 
     title = parsed_article.title
+    image = parsed_article.top_image
 
     parsed_article.nlp()
 
-    return title, parsed_article.keywords, parsed_article.summary
+    return title, image, parsed_article.keywords, parsed_article.summary
