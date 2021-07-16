@@ -69,7 +69,19 @@ def collect_news(topic):
             bias = biases[source_id]
         else:
             bias = "centrist"
-        parsed_articles[source_id] = [parsed_arr[0], parsed_arr[1], summarize_text(article_text), bias, parsed_arr[3]]
+
+        summary = summarize_text(article_text)
+
+        if parsed_arr[1] != "Article summary forbidden":
+            article_nlp = Article(parsed_arr[0])
+            article_nlp.download()
+            article_nlp.parse()
+            article_nlp.nlp()
+
+            if (4 * len(article_nlp.summary)) < len(summary):
+                summary = article_nlp.summary
+
+        parsed_articles[source_id] = [parsed_arr[0], parsed_arr[1], summary, bias, parsed_arr[3]]
 
     sentiments = sentiment_analysis(full_texts)
     return parsed_articles, sentiments
