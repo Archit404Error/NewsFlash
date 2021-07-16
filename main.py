@@ -41,7 +41,7 @@ def summaries() -> str:
 @app.route('/trending', methods=['GET', 'POST'])
 def trending() -> str:
     trending_url = "http://news-flash-proj.herokuapp.com/trendingApi"
-    trending_topics = requests.get(trending_url)["trending_list"]
+    trending_topics = requests.get(trending_url).json()["trending_list"]
     return render_template("trending.html", trending_topics = trending_topics)
 
 @app.route('/api')
