@@ -74,13 +74,16 @@ def collect_news(topic):
         summary = summarize_text(article_text)
 
         if parsed_arr[1] != "Article summary forbidden":
-            article_nlp = Article(parsed_arr[0])
-            article_nlp.download()
-            article_nlp.parse()
-            article_nlp.nlp()
+            try:
+                article_nlp = Article(parsed_arr[0])
+                article_nlp.download()
+                article_nlp.parse()
+                article_nlp.nlp()
 
-            if (4 * len(article_nlp.summary)) < len(summary):
-                summary = article_nlp.summary
+                if (4 * len(article_nlp.summary)) < len(summary):
+                    summary = article_nlp.summary
+            except:
+                pass
 
         parsed_articles[source_id] = [parsed_arr[0], parsed_arr[1], summary, bias, parsed_arr[3]]
 
