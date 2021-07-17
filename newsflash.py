@@ -35,7 +35,8 @@ category_to_list_map = {
                          "Health" : political_sources,
                          "Games" : political_sources,
                          "Arts" : political_sources,
-                         "Home" : political_sources
+                         "Home" : political_sources,
+                         "Recreation" : sports_sources,
                        }
 
 def collect_news(topic):
