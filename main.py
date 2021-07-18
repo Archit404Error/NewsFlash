@@ -60,8 +60,8 @@ def topRes() -> str:
 def articleAnalysis() -> str:
     article_url = list(request.args)[0]
 
-    title, image, keywords, summary = analyze_article(article_url)
-    return jsonify(title = title, image = image, keywords = keywords, summary = summary)
+    title, image, keywords, summary, sentiment_list = analyze_article(article_url)
+    return jsonify(title = title, image = image, keywords = keywords, summary = summary, sentiment = sentiment_list)
 
 @app.route('/trendingApi')
 def trendingApi() -> str:

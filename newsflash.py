@@ -100,4 +100,8 @@ def analyze_article(url):
 
     parsed_article.nlp()
 
-    return title, image, parsed_article.keywords, parsed_article.summary
+    sentiment_dict = sentiment_analysis({'article_analysis' : parsed_article.summary})
+
+    sentiment_list = sentiment_dict['article_analysis']
+
+    return title, image, parsed_article.keywords, parsed_article.summary, sentiment_list
