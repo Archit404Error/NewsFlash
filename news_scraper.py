@@ -78,7 +78,12 @@ def get_news(sources, topic) -> tuple[str, str]:
         article_from_id_exists = sources[source_id]
         if article_from_id_exists == False:
             article_url = article["url"]
-            newspaper_article = Article(article_url)
+
+            user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+            config = Config()
+            config.browser_user_agent = user_agent
+
+            newspaper_article = Article(article_url, config = config)
             newspaper_article.download()
             try:
                 newspaper_article.parse()
@@ -118,11 +123,15 @@ def get_top(country):
         image = ""
 
         try:
-            newspaper_article = Article(article["url"])
+            config = Config()
+            config.browser_user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+
+            newspaper_article = Article(article["url"], config = config)
             newspaper_article.download()
             newspaper_article.parse()
             title = newspaper_article.title
             image = newspaper_article.top_image
+            keywords = newspaper_article.keywords
         except:
             title = title.replace(" " + source, "")
             title = title[0 : len(title) - 2]
@@ -130,10 +139,11 @@ def get_top(country):
             if dash_last_occur > 0 and title[dash_last_occur + 1:].strip() == source:
                 title = title[:dash_last_occur]
             image = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"
+            keywords = []
 
-        full_texts[source] = title
+        full_texts[source] = article["content"]
 
-        article_infos[0][source] = [title, article["content"], article["url"], image]
+        article_infos[0][source] = [title, article["content"], article["url"], image, keywords]
 
     class_res = classify_topic(full_texts)
     sen_res = sentiment_analysis(full_texts)
