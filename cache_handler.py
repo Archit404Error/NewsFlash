@@ -88,3 +88,9 @@ def top_news(cache_path):
         cache.truncate()
 
     return top_articles
+
+def clear_caches(cache_paths):
+    for cache in cache_paths:
+        curr_cache = open(cache, 'r+')
+        curr_cache.seek(0)
+        curr_cache.truncate()

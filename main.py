@@ -1,5 +1,5 @@
 from flask import Flask, request, render_template, jsonify
-from cache_handler import cache_query, trending_news, top_news
+from cache_handler import cache_query, trending_news, top_news, clear_caches
 from newsflash import analyze_article
 import json
 import requests
@@ -67,6 +67,9 @@ def articleAnalysis() -> str:
 def trendingApi() -> str:
     return jsonify(trending_list = trending_news('query_cache.json'))
 
+@app.route('/reset')
+def clear() -> str:
+    clear_caches(['query_cache.json', 'top_cache.json'])
 
 if __name__ == "__main__":
     app.run(debug=True)
