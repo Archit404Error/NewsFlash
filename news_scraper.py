@@ -131,6 +131,7 @@ def get_top(country):
             newspaper_article.parse()
             title = newspaper_article.title
             image = newspaper_article.top_image
+            newspaper_article.nlp()
             keywords = newspaper_article.keywords
         except:
             title = title.replace(" " + source, "")
