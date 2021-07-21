@@ -141,7 +141,7 @@ def get_top(country):
             image = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"
             keywords = []
 
-        full_texts[source] = article["content"]
+        full_texts[source] = title
 
         article_infos[0][source] = [title, article["content"], article["url"], image, keywords]
 
