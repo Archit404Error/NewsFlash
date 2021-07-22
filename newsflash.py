@@ -91,7 +91,10 @@ def collect_news(topic):
     return parsed_articles, sentiments
 
 def analyze_article(url):
-    parsed_article = Article(url)
+    config = Config()
+    config.browser_user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
+
+    parsed_article = Article(url, config = config)
     parsed_article.download()
     parsed_article.parse()
 
