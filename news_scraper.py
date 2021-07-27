@@ -88,7 +88,8 @@ def get_news(sources, topic) -> tuple[str, str]:
             try:
                 newspaper_article.parse()
                 parsed_articles[source_id] = [article_url, newspaper_article.title, newspaper_article.text, newspaper_article.top_image]
-            except:
+            except Exception as e:
+                print(e)
                 parsed_articles[source_id] = [article_url, "Article summary forbidden", "The source prevented automatic article summarization, but the full article can still be read via the link.", "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"]
             sources[article["source"]["id"]] = True
 

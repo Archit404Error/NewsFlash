@@ -16,13 +16,13 @@ science_sources = ['national-geographic', 'new-scientist', 'next-big-future']
 sports_sources = ['espn', 'bleacher-report', 'four-four-two', 'nfl-news', 'nhl-news', 'talksport', 'the-sport-bible', 'bbc-sport']
 
 #List of political sources
-political_sources = ['bbc-news', 'cnn', 'fox-news', 'abc-news', 'breitbart-news', 'axios', 'the-hill', 'the-washington-post']
+political_sources = ['bbc-news', 'cnn', 'fox-news', 'abc-news', 'breitbart-news', 'axios', 'the-hill', 'msnbc']
 
 #Dictionary of politcial affiliation by source
 biases = {'bbc-news' : 'center', 'cnn' : 'liberal', 'fox-news' : 'conservative',
             'abc-news' : 'liberal', 'breitbart-news' : 'conservative',
             'axios' : 'center', 'the-hill' : 'center',
-            'the-washington-post' : 'liberal'}
+            'msnbc' : 'liberal'}
 
 #Create map to find list based on categorization(since Python doesn't have switch statements)
 category_to_list_map = {
