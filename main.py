@@ -71,5 +71,9 @@ def trendingApi() -> str:
 def clear() -> str:
     clear_caches(['query_cache.json', 'top_cache.json'])
 
+@app.route('/privacy')
+def privacy() -> str:
+    return render_template('privacy.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
