@@ -75,5 +75,9 @@ def clear() -> str:
 def privacy() -> str:
     return render_template('privacy.html')
 
+@app.route('/support')
+def contact() -> str:
+    return render_template('support.html')
+
 if __name__ == "__main__":
     app.run(debug=True)

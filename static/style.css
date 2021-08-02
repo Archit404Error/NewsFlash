@@ -104,6 +104,38 @@ input[type='range'] {
   color: #2d6ff4;
 }
 
+#contactHeader h1, h2, h3, h4, h5 {
+  color: #2d6ff4;
+}
+
+#contact label {
+  color: #2d6ff4;
+}
+
+#contact input {
+  color: #2d6ff4;
+  background-color: black;
+}
+
+#contact textarea {
+  color: #2d6ff4;
+  background-color: black;
+}
+
+#contactSubmit {
+  color: #2d6ff4;
+  background-color: black;
+  border: 2px solid #2d6ff4;
+  padding: 0.5%;
+  transition-duration: 0.5s;
+}
+
+#contactSubmit:hover {
+  color: white;
+  background-color: #2d6ff4;
+  border: 2px solid #2d6ff4;
+}
+
 ::placeholder {
   color: #2d6ff4;
 }
