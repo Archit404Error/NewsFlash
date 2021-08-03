@@ -94,6 +94,14 @@ input[type='range'] {
   border: 2px solid #2d6ff4;
 }
 
+#topHeadlines .card:hover .card-title {
+  color: white;
+}
+
+#topHeadlines .card:hover .text-muted {
+  color: white;
+}
+
 #topHeadlines a {
   color: white;
 }
