@@ -13,6 +13,13 @@
     <!-- Load Stylesheets -->
     <link type = "text/css" rel = "stylesheet" href = "/static/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+
+    <script>
+      function confirmFeedback() {
+        alert("Information submitted! Thank you!");
+      }
+    </script>
+
   </head>
   <body>
     <div class = "container vh-100 d-flex align-items-center">
@@ -26,7 +33,7 @@
             You can use this form to report bugs, ask questions about app features, or to send us any information you deem necessary!
           </h4>
         </div>
-        <form class = "col-md-6">
+        <form class = "col-md-6" onsubmit = "return confirmFeedback();">
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">Email address</label>
             <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
