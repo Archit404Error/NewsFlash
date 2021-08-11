@@ -1,4 +1,2 @@
 node_modules/
 venv/
-query_cache.json
-top_cache.json
