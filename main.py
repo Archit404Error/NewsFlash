@@ -60,12 +60,18 @@ def topRes() -> str:
 def articleAnalysis() -> str:
     article_url = list(request.args)[0]
 
-    title, image, keywords, summary, sentiment_list = analyze_article(article_url)
+    title, image, keywords, summary, sentiment_list = analyze_article(article_url, nlp = True)
     return jsonify(title = title, image = image, keywords = keywords, summary = summary, sentiment = sentiment_list)
 
 @app.route('/trendingApi')
 def trendingApi() -> str:
     return jsonify(trending_list = trending_news('query_cache.json'))
+
+@app.route('/fullArticle')
+def fullApi() -> str:
+    article_url = list(request.args)[0]
+    title, image, full_text = analyze_article(article_url, nlp = False)
+    return jsonify(title = title, image = image, full_text = full_text)
 
 @app.route('/reset')
 def clear() -> str:

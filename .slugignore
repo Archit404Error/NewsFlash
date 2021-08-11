@@ -1,3 +1,5 @@
 /node_modules
 /phone-client
 /venv
+query_cache.json
+top_cache.json

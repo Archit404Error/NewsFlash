@@ -90,7 +90,7 @@ def collect_news(topic):
     sentiments = sentiment_analysis(full_texts)
     return parsed_articles, sentiments
 
-def analyze_article(url):
+def analyze_article(url, nlp):
     config = Config()
     config.browser_user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36'
 
@@ -100,6 +100,9 @@ def analyze_article(url):
 
     title = parsed_article.title
     image = parsed_article.top_image
+
+    if not nlp:
+        return title, image, parsed_article.text
 
     parsed_article.nlp()
 
