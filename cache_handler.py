@@ -81,7 +81,8 @@ def top_news(cache_path):
     #Reopen cache file so we can re-read from it
     cache = open(cache_path, 'r+')
 
-    if len(top_articles[0]) == 0 or ((time.time() - top_articles[1]) / (60 * 60 * 24)) >= 1:
+    refresh_per_day = 4
+    if len(top_articles[0]) == 0 or ((time.time() - top_articles[1]) / (60 * 60 * 24)) >= (1 / refresh_per_day):
         top_articles = get_top("us")
         cache.seek(0)
         json.dump(top_articles, cache)
