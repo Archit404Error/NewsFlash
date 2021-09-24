@@ -71,6 +71,10 @@ input[type='range'] {
   text-decoration-color: white;
 }
 
+#topHeadlines h6 {
+  color: #6e757c;
+}
+
 #landing h1 {
   font-size: 8vh;
 }
@@ -98,7 +102,7 @@ input[type='range'] {
   color: white;
 }
 
-#topHeadlines .card:hover .text-muted {
+#topHeadlines .card:hover .card-subtitle {
   color: white;
 }
 
