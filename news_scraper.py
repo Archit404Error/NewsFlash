@@ -113,6 +113,7 @@ def get_top(country):
     res = requests.get(endpoint_url, params=query_params)
     res_json = res.json()
 
+    print(res_json)
     articles = res_json["articles"]
 
     article_infos = [{}, time.time()]
