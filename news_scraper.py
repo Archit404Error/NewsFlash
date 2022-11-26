@@ -1,12 +1,15 @@
-import requests
-from newspaper import *
+import datetime
 import json
-from summary import summarize_text
 import os
-import datetime, time
+import time
+
 import dateutil.parser
+import requests
 from dotenv import load_dotenv
+from newspaper import *
+
 from content_categorizer import classify_topic, sentiment_analysis
+from summary import summarize_text
 
 #Load environment
 load_dotenv()
@@ -42,7 +45,7 @@ def get_news(sources, topic) -> tuple[str, str]:
 
     #If the resonse contains error code, break and return error
     if "code" in res_json.keys():
-        return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', res_json["code"], "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"]}
+        return {'No Source Found' : ['http://127.0.0.1:5000', 'No article found', res_json["code"], "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"]}
 
     #Store response articles
     articles = res_json["articles"]
@@ -67,7 +70,7 @@ def get_news(sources, topic) -> tuple[str, str]:
 
         if len(articles) == 0:
             #Return if still nothing found
-            return {'No Source Found' : ['http://news-flash-proj.herokuapp.com', 'No article found', 'No recent news on the topic of ' + topic, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"]}
+            return {'No Source Found' : ['http://127.0.0.1:5000', 'No article found', 'No recent news on the topic of ' + topic, "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"]}
 
     parsed_articles = {}
 

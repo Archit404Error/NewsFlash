@@ -1,20 +1,22 @@
-from flask import Flask, request, render_template, jsonify
-from cache_handler import cache_query, trending_news, top_news, clear_caches
-from newsflash import analyze_article
 import json
-import requests
 
-#FIXME: Change how outlets are displayed under article title
-#TODO: Implement mobile client to query API
+import requests
+from flask import Flask, jsonify, render_template, request
+
+from cache_handler import cache_query, clear_caches, top_news, trending_news
+from newsflash import analyze_article
 
 #Initialize server
 app = Flask(__name__)
 
+def get_news(topic):
+    parsed_articles, sentiments = cache_query('query_cache.json', topic)
+
+    return jsonify(topic = topic, parsed_articles = parsed_articles, sentiments = sentiments)
+
 @app.route('/', methods=['GET', 'POST'])
 def index() -> str:
-    url = "http://news-flash-proj.herokuapp.com/topApi"
-    top_res = requests.get(url)
-    top_articles = top_res.json()["top_articles"]
+    top_articles = topRes().json["top_articles"]
     return render_template("index.html", top_articles = top_articles)
 
 @app.route('/mobile')
@@ -28,9 +30,7 @@ def summaries() -> str:
     topic = topic.title()
     topic = topic.replace(" ", "+")
 
-    url = "http://news-flash-proj.herokuapp.com/api?{}"
-    api_res = requests.get(url.format(topic))
-    res_json = api_res.json()
+    res_json =  get_news(topic).json
 
     topic = res_json["topic"]
     parsed_articles = res_json["parsed_articles"]
@@ -40,17 +40,14 @@ def summaries() -> str:
 
 @app.route('/trending', methods=['GET', 'POST'])
 def trending() -> str:
-    trending_url = "http://news-flash-proj.herokuapp.com/trendingApi"
-    trending_topics = requests.get(trending_url).json()["trending_list"]
+    trending_topics = trendingApi().json["trending_list"]
     return render_template("trending.html", trending_topics = trending_topics)
 
 @app.route('/api')
 def apiRes() -> str:
     #Store user topic from request
     topic = list(request.args)[0]
-    parsed_articles, sentiments = cache_query('query_cache.json', topic)
-
-    return jsonify(topic = topic, parsed_articles = parsed_articles, sentiments = sentiments)
+    return get_news(topic)
 
 @app.route('/topApi')
 def topRes() -> str:
