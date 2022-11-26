@@ -7,8 +7,12 @@ optimal analyses
 
 # importing libraries
 import nltk
+
+nltk.download("stopwords")
+
 from nltk.corpus import stopwords
-from nltk.tokenize import punkt, word_tokenize, sent_tokenize
+from nltk.tokenize import sent_tokenize, word_tokenize
+
 
 def summarize_text(text) -> str:
 
