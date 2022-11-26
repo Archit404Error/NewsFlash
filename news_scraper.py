@@ -14,7 +14,7 @@ from summary import summarize_text
 #Load environment
 load_dotenv()
 
-def get_news(sources, topic) -> tuple[str, str]:
+def get_news(sources, topic):
 
     source_str = ""
 
