@@ -23,6 +23,8 @@ All scraping and data collection happens at the `/api` page, where all user requ
 
 In other words, both the mobile app as well as the website utilize `/api` on the server in order to display information to the user. Hence, any changes to the core logic(back-end) of the program should be done on `/api`.
 
+This project also makes use of a cache to decrease response times for the end user, refreshing the cache only after the program notices the data has gone stale (~1 day old) upon the user making a request. Since there is not a particularly large amount of data that needs to be stored, I chose to store the data in a json file, mainly for the sake of faster query times.
+
 ## APIs Used
 The APIs used in the creation of this project were [NewsAPI](https://newsapi.org), in order to gather and scrape articles, as well as [UClassify](https://www.uclassify.com), to perform content categorization and sentiment analysis.
 
