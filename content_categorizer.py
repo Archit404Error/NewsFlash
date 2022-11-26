@@ -1,5 +1,6 @@
-import requests
 import os
+
+import requests
 from dotenv import load_dotenv
 
 #Load environment
@@ -39,7 +40,7 @@ def classify_topic(titles) -> str:
 
     return classifications
 
-def sentiment_analysis(texts) -> dict[str, float]:
+def sentiment_analysis(texts):
     #Set up necessary headers for API
     headers = {
         "Content-Type" : "application/json",
