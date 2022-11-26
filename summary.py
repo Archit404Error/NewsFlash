@@ -9,9 +9,10 @@ optimal analyses
 import nltk
 
 nltk.download("stopwords")
+nltk.download("punkt")
 
 from nltk.corpus import stopwords
-from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.tokenize import punkt, sent_tokenize, word_tokenize
 
 
 def summarize_text(text) -> str:
