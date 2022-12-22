@@ -11,15 +11,12 @@ feedparser==6.0.8
 filelock==3.0.12
 Flask==2.0.1
 gunicorn==20.1.0
-itsdangerous==2.0.1
 jieba3k==0.35.1
 Jinja2==3.0.1
-joblib==1.0.1
 lxml==4.6.3
 newspaper3k==0.2.8
 nltk==3.6.2
 opt-einsum==3.3.0
-protobuf==3.17.3
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 python-dateutil==2.8.1
