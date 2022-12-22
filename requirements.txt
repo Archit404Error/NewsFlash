@@ -23,8 +23,6 @@ itsdangerous==2.0.1
 jieba3k==0.35.1
 Jinja2==3.0.1
 joblib==1.0.1
-keras-nightly==2.5.0.dev2021032900
-Keras-Preprocessing==1.1.2
 lxml==4.6.3
 Markdown==3.3.4
 MarkupSafe==2.0.1
@@ -48,12 +46,6 @@ rsa==4.7.2
 sgmllib3k==1.0.0
 six==1.15.0
 soupsieve==2.2.1
-tensorboard==2.5.0
-tensorboard-data-server==0.6.1
-tensorboard-plugin-wit==1.8.0
-tensorflow-cpu==2.5.0
-tensorflow-estimator==2.5.0
-tensorflow-hub==0.12.0
 termcolor==1.1.0
 tinysegmenter==0.3
 tldextract==3.1.0
