@@ -34,7 +34,7 @@ def get_news(sources, topic):
       "qInTitle" : "+{}".format(topic),
       "language" : "en",
       "from" : week_ago,
-      "apiKey" : os.environ.get("scraper-api-key")
+      "apiKey" : os.environ.get("scraper_api_key")
     }
 
     endpoint_url = "https://newsapi.org/v2/everything"
@@ -60,7 +60,7 @@ def get_news(sources, topic):
           "q" : "{}".format(topic),
           "language" : "en",
           "from" : week_ago,
-          "apiKey" : os.environ.get("scraper-api-key")
+          "apiKey" : os.environ.get("scraper_api_key")
         }
         res = requests.get(endpoint_url, params=query_params)
         res_json = res.json()
@@ -107,7 +107,7 @@ def get_top(country):
       "country" : "{}".format(country),
       "language" : "en",
       "from" : today,
-      "apiKey" : os.environ.get("scraper-api-key")
+      "apiKey" : os.environ.get("scraper_api_key")
     }
 
     endpoint_url = "https://newsapi.org/v2/top-headlines"

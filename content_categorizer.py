@@ -15,7 +15,7 @@ def classify_topic(titles) -> str:
     #Set up necessary headers for API
     headers = {
         "Content-Type" : "application/json",
-        "Authorization" : "Token " + os.environ.get("categorization-api-key")
+        "Authorization" : "Token " + os.environ.get("categorization_api_key")
     }
 
     #Set up query parameters for UClassify API
@@ -44,7 +44,7 @@ def sentiment_analysis(texts):
     #Set up necessary headers for API
     headers = {
         "Content-Type" : "application/json",
-        "Authorization" : "Token " + os.environ.get("categorization-api-key")
+        "Authorization" : "Token " + os.environ.get("categorization_api_key")
     }
 
     #Set up query parameters for UClassify API

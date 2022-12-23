@@ -21,7 +21,7 @@ Upon starting the server, the program will begin running at `127.0.0.1:5000/`
 
 Additionally, it is necessary to create a `.env` file in order to store API keys that will be loaded into different parts of your program.
 
-Your API keys should be formatted as such: `categorization-api-key: [insert here]` and `scraper-api-key: [insert here]`
+Your API keys should be formatted as such: `categorization_api_key: [insert here]` and `scraper_api_key: [insert here]`
 
 ## Program Structure
 
