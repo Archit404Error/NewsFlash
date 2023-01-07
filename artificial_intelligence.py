@@ -45,6 +45,6 @@ def predict_bias(article_text):
     return labels[np.argmax(pred)], float(np.max(pred))
 
 
-def process_batch(content_mappings):
-    for source, content in content_mappings.items():
-        content_mappings[source] = predict_bias(content)
+def process_batch(contents):
+    for i, content in enumerate(contents):
+        contents[i] = predict_bias(content)

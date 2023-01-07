@@ -85,7 +85,7 @@ def top_news(cache_path):
     try:
         top_articles = json.load(cache)
     except:
-        top_articles = [{}, time.time()]
+        top_articles = [[], time.time()]
 
     # Reopen cache file so we can re-read from it
     cache = open(cache_path, "r+")

@@ -146,9 +146,9 @@ def get_top(country):
 
     articles = res_json["articles"]
 
-    article_infos = [{}, time.time()]
-    full_texts = {}
-    article_contents = {}
+    article_infos = [[], time.time()]
+    full_texts = []
+    article_contents = []
 
     for article in articles:
         title = article["title"]
@@ -175,25 +175,27 @@ def get_top(country):
             image = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Question_mark_%28black%29.svg/1200px-Question_mark_%28black%29.svg.png"
             keywords = []
 
-        full_texts[source] = title
-        article_contents[source] = article["content"]
+        full_texts.append(title)
+        article_contents.append(article["content"])
 
-        article_infos[0][source] = [
-            title,
-            article["content"],
-            article["url"],
-            image,
-            keywords,
-        ]
+        article_infos[0].append(
+            [
+                title,
+                source,
+                article["content"],
+                article["url"],
+                image,
+                keywords,
+            ]
+        )
 
-    class_res = classify_topic(full_texts)
-    sen_res = sentiment_analysis(full_texts)
+    # class_res = classify_topic(full_texts)
+    # sen_res = sentiment_analysis(full_texts)
+    class_res = ["test"] * len(full_texts)
     process_batch(article_contents)
 
-    for article in articles:
-        source = article["source"]["name"]
-        article_infos[0][source].append(class_res[source])
-        article_infos[0][source].append(sen_res[source])
-        article_infos[0][source].append(article_contents[source])
+    for i, article in enumerate(articles):
+        article_infos[0][i].append(class_res[i])
+        article_infos[0][i].append(article_contents[i])
 
     return article_infos

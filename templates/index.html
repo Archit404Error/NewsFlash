@@ -107,19 +107,19 @@
     </div>
     <div id = "topHeadlines" style = "min-height: 50vh;">
         {% set card_per_row = 3 %}
-        {% for source, info_arr in top_articles[0].items() %}
+        {% for info_arr in top_articles[0] %}
           {% if loop.index % card_per_row == 1 %}
             <div class = "row justify-content-center">
               <div id = "{{info_arr[0]}}" class="card col-md-3" style="margin-bottom: 5%;">
                 <div class="card-body">
                   <h5 class="card-title">{{info_arr[0]}}</h5>
                   <div class = "row">
-                    <h6 class="card-subtitle mb-2 col-md-auto">{{source}}</h6>
-                    <h6 id = "{{info_arr[0]}} category" class="card-subtitle mb-2 col-md-auto">{{info_arr[5]}}</h6>
-                    <h6 class="card-subtitle mb-2 col-md-auto">{{(info_arr[6][1]*100)|round}}% {{info_arr[6][0]}}</h6>
+                    <h6 class="card-subtitle mb-2 col-md-auto">{{info_arr[1]}}</h6>
+                    <h6 id = "{{info_arr[0]}} category" class="card-subtitle mb-2 col-md-auto">{{info_arr[6]}}</h6>
+                    <h6 class="card-subtitle mb-2 col-md-auto">{{(info_arr[7][1]*100)|round}}% {{info_arr[7][0]}}</h6>
                   </div>
-                  <p class="card-text">{{info_arr[1]}}</p>
-                  <a target="_blank" href={{info_arr[2]}} class="card-link">View Article</a>
+                  <p class="card-text">{{info_arr[2]}}</p>
+                  <a target="_blank" href={{info_arr[3]}} class="card-link">View Article</a>
                 </div>
               </div>
           {% endif %}
@@ -128,12 +128,12 @@
               <div class="card-body">
                 <h5 class="card-title">{{info_arr[0]}}</h5>
                 <div class = "row">
-                  <h6 class="card-subtitle mb-2 col-md-auto">{{source}}</h6>
-                  <h6 id = "{{info_arr[0]}} category" class="card-subtitle mb-2 col-md-auto">{{info_arr[5]}}</h6>
-                  <h6 class="card-subtitle mb-2 col-md-auto">{{(info_arr[6][1]*100)|round}}% {{info_arr[6][0]}}</h6>
+                  <h6 class="card-subtitle mb-2 col-md-auto">{{info_arr[1]}}</h6>
+                  <h6 id = "{{info_arr[0]}} category" class="card-subtitle mb-2 col-md-auto">{{info_arr[6]}}</h6>
+                  <h6 class="card-subtitle mb-2 col-md-auto">{{(info_arr[7][1]*100)|round}}% {{info_arr[7][0]}}</h6>
                 </div>
-                <p class="card-text">{{info_arr[1]}}</p>
-                <a target="_blank" href={{info_arr[2]}} class="card-link">View Article</a>
+                <p class="card-text">{{info_arr[2]}}</p>
+                <a target="_blank" href={{info_arr[3]}} class="card-link">View Article</a>
               </div>
             </div>
           {% endif %}
