@@ -1,6 +1,7 @@
 node_modules/
 venv/
 env/
+ai_models/
 .DS_Store
 __pycache__/
 .env
