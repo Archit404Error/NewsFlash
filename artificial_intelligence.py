@@ -3,14 +3,13 @@ import re
 
 import nltk
 import numpy as np
-import tensorflow as tf
+import sklearn
 from gensim.models import Doc2Vec
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
-from tensorflow.keras.models import load_model
 
 vec_model = Doc2Vec.load("./ai_models/Doc2Vec/article_bias_doc2vec.model")
-article_nn = load_model("./ai_models/article_bias_nn.h5")
+article_nn = pickle.load(open("./ai_models/svc_bias.pickle", "rb"))
 engl_stops = set(stopwords.words("english"))
 
 
@@ -38,12 +37,11 @@ def preprocess(text):
 
 
 def predict_bias(article_text):
-    print(article_text)
     art_vec = np.asarray(preprocess(article_text))
     art_vec = art_vec.reshape(1, 500)
-    labels = ["republican", "democratic"]
+    labels = ["democratic", "republican"]
     pred = article_nn.predict(art_vec)
-    return labels[np.argmax(pred)], float(np.max(pred))
+    return labels[np.max(pred)], float(np.max(pred))
 
 
 def process_batch(contents):
