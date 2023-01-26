@@ -93,13 +93,12 @@ def top_news(cache_path):
         len(top_articles[0]) == 0
         or ((time.time() - top_articles[1]) / (60 * 60 * 24)) >= 1
     ):
-        try:
-            top_articles = get_top("us")
-            cache.seek(0)
-            json.dump(top_articles, cache)
-            cache.truncate()
-        except:
-            pass
+        top_articles = get_top("us")
+        cache.seek(0)
+        json.dump(top_articles, cache)
+        cache.truncate()
+    else:
+        print("using cached")
 
     return top_articles
 

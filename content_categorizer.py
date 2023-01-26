@@ -30,14 +30,13 @@ def classify_topic(titles) -> str:
     # Send get request to API and store response
     res = requests.post(endpoint_url, headers=headers, json=query_params)
     res_json = res.json()
-    print(res_json)
 
     classifications = []
 
     for i, res_dict in enumerate(res_json):
         category_list = res_dict["classification"]
         ordered_cats = sorted(category_list, key=lambda cat_dict: 1 - cat_dict["p"])
-        classifications[i] = ordered_cats[0]["className"]
+        classifications.append(ordered_cats[0]["className"])
 
     return classifications
 

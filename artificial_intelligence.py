@@ -38,6 +38,7 @@ def preprocess(text):
 
 
 def predict_bias(article_text):
+    print(article_text)
     art_vec = np.asarray(preprocess(article_text))
     art_vec = art_vec.reshape(1, 500)
     labels = ["republican", "democratic"]
@@ -47,4 +48,4 @@ def predict_bias(article_text):
 
 def process_batch(contents):
     for i, content in enumerate(contents):
-        contents[i] = predict_bias(content)
+        contents[i] = predict_bias(content) if content else ("", 0.0)

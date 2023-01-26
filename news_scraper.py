@@ -189,9 +189,8 @@ def get_top(country):
             ]
         )
 
-    # class_res = classify_topic(full_texts)
+    class_res = classify_topic(full_texts)
     # sen_res = sentiment_analysis(full_texts)
-    class_res = ["test"] * len(full_texts)
     process_batch(article_contents)
 
     for i, article in enumerate(articles):
