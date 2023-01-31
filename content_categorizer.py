@@ -34,9 +34,12 @@ def classify_topic(titles) -> str:
     classifications = []
 
     for i, res_dict in enumerate(res_json):
-        category_list = res_dict["classification"]
-        ordered_cats = sorted(category_list, key=lambda cat_dict: 1 - cat_dict["p"])
-        classifications.append(ordered_cats[0]["className"])
+        if "classification" in res_dict:
+            category_list = res_dict["classification"]
+            ordered_cats = sorted(category_list, key=lambda cat_dict: 1 - cat_dict["p"])
+            classifications.append(ordered_cats[0]["className"])
+        else:
+            classifications.append("")
 
     return classifications
 
