@@ -135,6 +135,7 @@ def get_top(country):
         "country": "{}".format(country),
         "language": "en",
         "from": today,
+        "pageSize": 100,
         "apiKey": os.environ.get("scraper_api_key"),
     }
 
