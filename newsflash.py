@@ -1,5 +1,6 @@
 from newspaper import *
 
+from artificial_intelligence import process_batch
 from content_categorizer import classify_topic, sentiment_analysis
 from news_scraper import get_news
 from summary import summarize_text
@@ -83,12 +84,12 @@ category_to_list_map = {
 
 def collect_news(topic):
     # Use classification function and store result
-    topic_category = ""
+    topic_category = None
     try:
         topic_category = classify_topic({"user-query": topic})
         topic_category = topic_category["user-query"]
     except:
-        pass
+        topic_category = ""
 
     # Format topic for api query
     topic = topic.replace(" ", "+")
@@ -112,11 +113,11 @@ def collect_news(topic):
             source_dict[source] = False
         parsed_articles = get_news(source_dict, topic)
 
-    full_texts = {}
+    full_texts = []
     for source_id, parsed_arr in parsed_articles.items():
         article_text = parsed_arr[2]
-        full_texts[source_id] = article_text
-        if source_id in biases.keys():
+        full_texts.append(article_text)
+        if source_id in biases:
             bias = biases[source_id]
         else:
             bias = "centrist"
@@ -143,8 +144,10 @@ def collect_news(topic):
             parsed_arr[3],
         ]
 
-    sentiments = sentiment_analysis(full_texts)
-    return parsed_articles, sentiments
+    process_batch(full_texts)
+    print(full_texts)
+
+    return parsed_articles, full_texts
 
 
 def analyze_article(url, nlp):

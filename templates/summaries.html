@@ -50,15 +50,15 @@
           {% if parsed_arr[0] != 'No article found' %}
           <div class = "row">
             <div class = "col-md-3 offset-md-1">
-              <h2 class = "col-md-12"><span style = "color: white;">[{{(sentiments[source][1]*100)|round}}% {{sentiments[source][0]}}]</span></h2>
+              <h2 class = "col-md-12"><span style = "color: white;">[{{(sentiments[loop.index - 1][1]*100)|round}}% {{sentiments[loop.index - 1][0]}}]</span></h2>
               <input id = "{{source}} range" min="0" max="100" type="range" disabled />
               <script>
-                if ("{{sentiments[source][0]}}" == "positive"){
-                  setSlider('{{source}} range', {{(sentiments[source][1]*100)|round}});
-                  document.getElementById('{{source}} range').style.background = 'linear-gradient(to right, green 0%, green ' + {{(sentiments[source][1]*100)|round}} + '%, #fff ' + {{(sentiments[source][1]*100)|round}} + '%, white 100%)';
+                if ("{{sentiments[loop.index - 1][0]}}" == "democratic"){
+                  setSlider('{{source}} range', {{(sentiments[loop.index - 1][1]*100)|round}});
+                  document.getElementById('{{source}} range').style.background = 'linear-gradient(to right, green 0%, green ' + {{(sentiments[loop.index - 1][1]*100)|round}} + '%, #fff ' + {{(sentiments[loop.index - 1][1]*100)|round}} + '%, white 100%)';
                 } else {
-                  setSlider('{{source}} range', 100 - {{(sentiments[source][1]*100)|round}});
-                  document.getElementById('{{source}} range').style.background = 'linear-gradient(to left, red 0%, red ' + {{ (sentiments[source][1]*100)|round}} + '%, #fff ' + {{(sentiments[source][1]*100)|round}} + '%, white 100%)';
+                  setSlider('{{source}} range', 100 - {{(sentiments[loop.index - 1][1]*100)|round}});
+                  document.getElementById('{{source}} range').style.background = 'linear-gradient(to left, red 0%, red ' + {{ (sentiments[loop.index - 1][1]*100)|round}} + '%, #fff ' + {{(sentiments[loop.index - 1][1]*100)|round}} + '%, white 100%)';
                 }
               </script>
             </div>
