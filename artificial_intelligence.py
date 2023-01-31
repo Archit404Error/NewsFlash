@@ -9,7 +9,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
 vec_model = Doc2Vec.load("./ai_models/Doc2Vec/article_bias_doc2vec.model")
-article_nn = pickle.load(open("./ai_models/svc_bias.pickle", "rb"))
+article_svm = pickle.load(open("./ai_models/svc_bias_prob.pickle", "rb"))
 engl_stops = set(stopwords.words("english"))
 
 
@@ -40,8 +40,8 @@ def predict_bias(article_text):
     art_vec = np.asarray(preprocess(article_text))
     art_vec = art_vec.reshape(1, 500)
     labels = ["democratic", "republican"]
-    pred = article_nn.predict(art_vec)
-    return labels[np.max(pred)], float(np.max(pred))
+    pred = article_svm.predict_proba(art_vec)
+    return labels[np.argmax(pred)], float(np.max(pred))
 
 
 def process_batch(contents):
