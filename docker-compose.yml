@@ -9,4 +9,4 @@ services:
     volumes:
       - "./ai_models:/usr/app/ai_models"
     ports:
-      - "8000:8000"
+      - "5000:8000"
