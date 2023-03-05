@@ -42,9 +42,10 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            sudo docker compose down -p newsflash -d
+            sudo docker compose -p newsflash down
             sudo docker stop newsflash-web-1
             sudo docker rm newsflash-web-1
             sudo docker rmi newsflash-web
-            sudo docker compose up -p newsflash --build -d
+            sudo docker compose -p newsflash up --build -d
             yes | sudo docker container prune
+            yes | sudo docker system prune
