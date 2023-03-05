@@ -42,10 +42,9 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            export NEWS_TAG=${{ steps.vars.outputs.sha_short }}
-            sudo docker stop newsflash-backend
-            sudo docker rm newsflash-backend
-            sudo docker rmi $(sudo docker images -q 4architmehta/newsflash)
-            sudo docker pull "4architmehta/newsflash:${NEWS_TAG}"
-            sudo docker run -dp 5000:8000 --name newsflash-backend "4architmehta/newsflash:${NEWS_TAG}"
+            sudo docker compose down -p newsflash -d
+            sudo docker stop newsflash-web-1
+            sudo docker rm newsflash-web-1
+            sudo docker rmi newsflash-web
+            sudo docker compose up -p newsflash --build -d
             yes | sudo docker container prune

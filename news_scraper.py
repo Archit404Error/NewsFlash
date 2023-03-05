@@ -132,7 +132,7 @@ def get_top(country):
 
     # Format parameters for API query
     query_params = {
-        "country": "{}".format(country),
+        "country": f"{country}",
         "language": "en",
         "from": today,
         "pageSize": 100,
