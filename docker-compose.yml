@@ -2,9 +2,7 @@ version: "3.6"
 
 services:
   web:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: 4architmehta/newsflash:${NEWSFLASH_TAG}
     env_file: .env
     volumes:
       - "./ai_models:/usr/app/ai_models"
