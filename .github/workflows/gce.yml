@@ -42,12 +42,11 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            cd /home/${{ secrets.SERVER_USER }}/NewsFlash
             export NEWSFLASH_TAG="${{ steps.vars.outputs.sha_short }}"
-            docker compose -p newsflash down
+            docker-compose -p newsflash down
             docker stop newsflash-web-1
             docker rm newsflash-web-1
             docker rmi newsflash-web
-            docker compose -p newsflash up -d
+            docker-compose -p newsflash up -d
             yes | sudo docker container prune
             yes | sudo docker system prune

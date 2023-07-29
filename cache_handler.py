@@ -7,14 +7,14 @@ from newsflash import collect_news
 
 
 def cache_query(cache_path, topic):
-    cache = open(cache_path, "r+")
+    cache = open(cache_path, "w+")
     try:
         cached_list = json.load(cache)
     except:
         # Occurs if we fail to load cache json(only occurs when cache is empty)
         cached_list = []
     # Reopen cache file so we can re-read from it
-    cache = open(cache_path, "r+")
+    cache = open(cache_path, "w+")
     parsed_articles = {}
     if topic in cache.read():
         for stored in cached_list:
@@ -61,7 +61,7 @@ def cache_query(cache_path, topic):
 
 
 def trending_news(cache_path):
-    cache = open(cache_path, "r+")
+    cache = open(cache_path, "w+")
 
     try:
         cached_list = json.load(cache)
@@ -80,7 +80,7 @@ def trending_news(cache_path):
 
 
 def top_news(cache_path):
-    cache = open(cache_path, "r+")
+    cache = open(cache_path, "w+")
 
     try:
         top_articles = json.load(cache)
@@ -88,7 +88,7 @@ def top_news(cache_path):
         top_articles = [[], time.time()]
 
     # Reopen cache file so we can re-read from it
-    cache = open(cache_path, "r+")
+    cache = open(cache_path, "w+")
     if (
         len(top_articles[0]) == 0
         or ((time.time() - top_articles[1]) / (60 * 60 * 24)) >= 1
@@ -105,6 +105,6 @@ def top_news(cache_path):
 
 def clear_caches(cache_paths):
     for cache in cache_paths:
-        curr_cache = open(cache, "r+")
+        curr_cache = open(cache, "w+")
         curr_cache.seek(0)
         curr_cache.truncate()
