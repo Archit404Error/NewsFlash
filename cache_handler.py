@@ -1,5 +1,6 @@
 import json
 import time
+from pathlib import Path
 
 from cache_models import CachedData
 from news_scraper import get_top
@@ -61,6 +62,9 @@ def cache_query(cache_path, topic):
 
 
 def trending_news(cache_path):
+    path = Path(cache_path)
+    path.touch(exist_ok=True)
+
     cache = open(cache_path, "w+")
 
     try:
