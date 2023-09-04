@@ -1,6 +1,6 @@
 import json
+import os
 import time
-from pathlib import Path
 
 from cache_models import CachedData
 from news_scraper import get_top
@@ -84,12 +84,12 @@ def trending_news(cache_path):
 
 
 def top_news(cache_path):
-    cache = open(cache_path, "r")
-
-    try:
-        top_articles = json.load(cache)
-    except:
+    if not os.path.exists(cache_path):
+        open(cache_path, "w+").close()
         top_articles = [[], time.time()]
+    else:
+        cache = open(cache_path, "r")
+        top_articles = json.load(cache)
 
     if (
         len(top_articles[0]) == 0
