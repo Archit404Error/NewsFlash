@@ -195,7 +195,7 @@ def get_top(country):
     process_batch(article_contents)
 
     for i, article in enumerate(articles):
-        article_infos[0][i].append(class_res[i])
+        article_infos[0][i].append(class_res[i] if i < len(class_res) else "")
         article_infos[0][i].append(article_contents[i])
 
     return article_infos

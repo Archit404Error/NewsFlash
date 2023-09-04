@@ -80,19 +80,19 @@ def trending_news(cache_path):
 
 
 def top_news(cache_path):
-    cache = open(cache_path, "w+")
+    cache = open(cache_path, "r")
 
     try:
         top_articles = json.load(cache)
     except:
         top_articles = [[], time.time()]
 
-    # Reopen cache file so we can re-read from it
-    cache = open(cache_path, "w+")
     if (
         len(top_articles[0]) == 0
         or ((time.time() - top_articles[1]) / (60 * 60 * 24)) >= 1
     ):
+        # Open and clear cache
+        cache = open(cache_path, "w+")
         top_articles = get_top("us")
         cache.seek(0)
         json.dump(top_articles, cache)
